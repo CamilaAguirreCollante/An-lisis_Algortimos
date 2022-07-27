@@ -20,7 +20,7 @@ def IsSorted( S ):
 
 ## -------------------------------------------------------------------------
 def DoExperiment( S, f ):
-  r = 5 
+  r = 10 
   t = 0 
   s = True
   for i in range( r ):
