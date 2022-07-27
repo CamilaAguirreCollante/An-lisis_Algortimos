@@ -52,8 +52,6 @@ s = int( sys.argv[ 3 ] )
 input_sequence = CreateSequence(e)
 input_sequence.sort(reverse=True)
 
-print(input_sequence)
-
 # Perform experiments
 for n in range( b, e + 1, s ):
   nbr = DoExperiment( input_sequence[ 0 : n ], NaiveBubbleSort )
