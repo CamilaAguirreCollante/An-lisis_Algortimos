@@ -38,7 +38,7 @@ def DoExperiment( S, f ):
 def CreateSequence( n ):
   seq = [] 
   for i in range (0, n):
-    num = random.randint(1, 20)
+    num = random.randint(1, 20000)
     seq.append(num)
   # end for
   return seq
