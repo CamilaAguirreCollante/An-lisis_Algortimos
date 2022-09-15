@@ -1,3 +1,8 @@
+"""
+    Autores: 
+        María Camila Aguirre Collante
+        Jessica Tatiana Naizaque Guevara
+"""
 from InterfazPrueba import *
 '''
 Menú de juego -> muestra las intrucciones al jugador
@@ -40,6 +45,7 @@ def gameMenu():
             print("\n\t\tOpción inválida!\n")
             print("\tRecuerde los tamaños disponibles: 5x5(1), 6x6(2), 7x7(3), 8x8(4) y 9x9(5) ")
             option = int(input("\tIngrese de nuevo una opción: "))
+        print("\n\n")
     #end-while
 #end-def
 

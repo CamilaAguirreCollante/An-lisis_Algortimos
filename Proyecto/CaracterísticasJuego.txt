@@ -1,0 +1,10 @@
+Flow free
+Tamaños de tablero:
+    1. 5x5
+    2. 6x6
+    3. 7x7
+    4. 8x8
+    5. 9x9
+Colores:
+    Juego original: Amarillo, Azul(oscuro), Rojo, Verde, Naranja, Azul(cielo), Morado, Fucsia, Vinotinto
+    Colores corres: yellow,   blue,         red,  green, white,   cyan,      , purple

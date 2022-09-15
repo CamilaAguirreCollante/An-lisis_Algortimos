@@ -1,0 +1,3 @@
+Inicialmente se debe instalar las librerías adicionales:
+    colorama:
+        pip install colorama (Windows o Linux)
