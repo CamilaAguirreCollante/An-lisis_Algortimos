@@ -78,35 +78,38 @@ def showBoard(board):
     for i in range(len(boardTemp)):
         for j in range(len(boardTemp)):
             if boardTemp[i][j]=="R":
-                boardTemp[i][j]=" "
+                boardTemp[i][j]= str(i)+str(j)
                 print("| ", end = "")
                 print(red + " {:3}".format(boardTemp[i][j]), end = " ")
             elif boardTemp[i][j]=="G":
-                boardTemp[i][j]=" "
+                boardTemp[i][j]= str(i)+str(j)
                 print("| ", end = "")
                 print(green + " {:3}".format(boardTemp[i][j]), end = " ")
             elif boardTemp[i][j]=="B":
-                boardTemp[i][j]=" "
+                boardTemp[i][j]=str(i)+str(j)
                 print("| ", end = "")
                 print(blue + " {:3}".format(boardTemp[i][j]), end = " ")
             elif boardTemp[i][j]=="Y":
-                boardTemp[i][j]=" "
+                boardTemp[i][j]=str(i)+str(j)
                 print("| ", end = "")
                 print(yellow + " {:3}".format(boardTemp[i][j]), end = " ")
             elif boardTemp[i][j]=="W":
-                boardTemp[i][j]=" "
+                boardTemp[i][j]=str(i)+str(j)
                 print("| ", end = "")
                 print(white + " {:3}".format(boardTemp[i][j]), end = " ")
             elif boardTemp[i][j]=="C":
-                boardTemp[i][j]=" "
+                boardTemp[i][j]=str(i)+str(j)
                 print("| ", end = "")
                 print(cyan + " {:3}".format(boardTemp[i][j]), end = " ")
             elif boardTemp[i][j]=="P":
-                boardTemp[i][j]=" "
+                boardTemp[i][j]=str(i)+str(j)
                 print("| ", end = "")
                 print(purple + " {:3}".format(boardTemp[i][j]), end = " ")
             else:
-                print("| {:4}".format(boardTemp[i][j]), end = " ")
+                boardTemp[i][j]=str(i)+str(j)
+                print("| ", end = "")
+                print(Back.BLACK + " {:3}".format(boardTemp[i][j]), end = " ")
+                #print("| {:4}".format(boardTemp[i][j]), end = " ")
         #end-for
         print("|")
         print("-"*(7 * len(boardTemp)+1))
