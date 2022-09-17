@@ -4,6 +4,8 @@
         Jessica Tatiana Naizaque Guevara
 """
 import copy
+from operator import truediv
+from tabnanny import check
 from colorama import *
 #from termcolor import colored, cprint
 
@@ -116,3 +118,55 @@ def showBoard(board):
     #end-for
 #end-def
 
+def check_finished(board):
+    for i in range(len(board)):
+        for j in range(len(board)):
+            if board[i][j] == 0:
+                return False    
+            #end if
+        #end for
+    #end for
+    return True
+#end def
+
+
+def select_move(board):
+    finished = False
+    parameters = False
+    while not finished:
+        finished = check_finished(board)
+        print(finished)
+        while not parameters:
+            print("Recuerde que los colores son:  ", red + " {:4}".format("Red"), green + " {:6}".format("Green"), blue + " {:5}".format("Blue"), yellow + " {:7}".format("Yellow"), white + " {:6}".format("White"), cyan + " {:5}".format("Cyan"), purple + " {:7}".format("Purple"))
+            move = str(input("Digite la inicial del color que desea utilizar y la casilla que desea jugar (Ej: R 34): "))
+            movements = move.split()
+            if len(movements) == 2:
+                if movements[0].isalpha():
+                    if movements[1].isnumeric():
+                        if movements[0].upper() == "R" or movements[0].upper() == "G" or movements[0].upper() == "B" or movements[0].upper() == "Y" or movements[0].upper() == "W" or movements[0].upper() == "C" or movements[0].upper() == "P": 
+                            if len(movements[1])  == 2:
+                                if int(movements[1][0]) >= 0 and int(movements[1][0]) < len(board) and int(movements[1][1]) >= 0 and int(movements[1][0]) < len(board):
+                                    parameters = True
+                                else:
+                                    print("******Número de casilla incorrecta.\n")
+                                #end if
+                            else:
+                                print("******Número de casilla incorrecta.\n")
+                            #end if
+                        else:
+                            print("******Inicial de color inválida.\n")
+                        #end if
+                    else:
+                        print ("******Parámetro casilla incorrecto.\n")
+                    #end if
+                else:
+                    print ("******Parámetro color incorrecto.\n")
+                #end if
+            else:
+                print("******Cantidad de parámetros enviados incorrecta.\n")
+            #end if
+        #end while
+        #######Continuación del juego
+        finished = True #Mientras continuamos el juego para verificar si ya terminó
+    #end while
+#end def

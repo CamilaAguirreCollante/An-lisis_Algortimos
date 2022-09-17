@@ -22,6 +22,7 @@ def gameMenu():
         if option == 1:
             board = createBoard(5)
             showBoard(board)
+            select_move(board)
             salir = True
         elif option == 2:
             board = createBoard(6)
