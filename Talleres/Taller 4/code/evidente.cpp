@@ -36,7 +36,6 @@ int longestSequence(vector<vector<int>> const &matriz) {
   return actual;
 }
 
-
 int main() {
   vector<vector<int>> matriz = {
       {10, 16, 15, 12}, 
