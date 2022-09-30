@@ -18,6 +18,9 @@ def gameMenu():
     print("\t\t5. 9x9")
     print("\t\t6. Salir")
     option = int(input("\tPor favor elija el tamaño del tablero: "))
+    
+    
+
     while not salir:
         if option == 1:
             board = createBoard(5)
