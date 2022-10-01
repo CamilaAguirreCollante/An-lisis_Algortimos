@@ -30,18 +30,22 @@ def gameMenu():
         elif option == 2:
             board = createBoard(6)
             showBoard(board)
+            selectMove(board)
             salir = True
         elif option == 3:
             board = createBoard(7)
             showBoard(board)
+            selectMove(board)
             salir = True
         elif option == 4:
             board = createBoard(8)
             showBoard(board)
+            selectMove(board)
             salir = True
         elif option == 5:
             board = createBoard(9)
             showBoard(board)
+            selectMove(board)
             salir = True
         elif option == 6:
             salir = True

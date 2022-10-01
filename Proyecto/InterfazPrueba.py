@@ -5,6 +5,7 @@
 """
 import copy
 from operator import truediv
+import random
 from tabnanny import check
 from colorama import *
 #from termcolor import colored, cprint
@@ -24,14 +25,28 @@ white = Back.WHITE
 @Salida -> creación del tablero de juego
 '''
 def createBoard(dim):
-    board = []
-    for i in range(dim):
-        board.append([])
-        for j in range(dim):
-            board[i].append(0)
-        #end-for
-    #end-for
-    return initialBoard(board)
+    # board = []
+    # for i in range(dim):
+    #     board.append([])
+    #     for j in range(dim):
+    #         board[i].append(0)
+    #     #end-for
+    # #end-for
+
+    if dim == 9:
+        numBoard = random.randint(1, 7)
+    else:
+        numBoard =  random.randint(1, 10)
+    #end if
+    path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(numBoard) + ".txt"
+    with open(path, "r") as f:
+        f1 = f.readlines()
+
+    # board 
+    lines = [x[:-1] for x in f1]
+    board = [[str(x) for x in y.split(" ")] for y in lines]
+    print(board)
+    return board
 #end-def
 
 '''
@@ -118,6 +133,10 @@ def showBoard(board):
     #end-for
 #end-def
 
+def checkWinner(board):
+    pass
+#end def
+
 def checkFinished(board):
     for i in range(len(board)):
         for j in range(len(board)):
@@ -167,6 +186,7 @@ def checkBox(board, color, coordenate):
 
 def selectMove(board):
     finished = False #Verificar que el juego no haya finalizado (cuando todas las casillas tienen color)
+    win = False
     while not finished:
         parameters = False #Verificar que los parámetros estén correctos y que haya seleccionado una casilla correcta
         while not parameters:
@@ -180,6 +200,7 @@ def selectMove(board):
                             if len(movements[1])  == 2:
                                 if int(movements[1][0]) >= 0 and int(movements[1][0]) < len(board) and int(movements[1][1]) >= 0 and int(movements[1][0]) < len(board):
                                     parameters = checkBox(board, movements[0].upper(), movements[1])
+                                    #Verificar que no tenga más de dos adyacentes
                                 else:
                                     print("******Número de casilla incorrecta.\n")
                                 #end if
@@ -204,4 +225,5 @@ def selectMove(board):
         finished = checkFinished(board)
         print(finished)
     #end while
+    win = checkWinner(board)
 #end def
