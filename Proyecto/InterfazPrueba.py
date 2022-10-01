@@ -31,7 +31,7 @@ def createBoard(dim):
             board[i].append(0)
         #end-for
     #end-for
-    return board
+    return initialBoard(board)
 #end-def
 
 '''
@@ -68,14 +68,14 @@ def initialBoard(board):
     for i in range(len(boardTemp)):
         for j in range(len(boardTemp)):
             if boardTemp[i][j] == 0:
-                boardTemp[i][j] = " "
+                boardTemp[i][j] = "0"
             #end-if
         #end-for
     #end-for
     return boardTemp
 
 def showBoard(board):
-    boardTemp = initialBoard(board)
+    boardTemp = copy.deepcopy(board)
     print("-"*(7 * len(boardTemp)+1))
     for i in range(len(boardTemp)):
         for j in range(len(boardTemp)):
@@ -118,10 +118,10 @@ def showBoard(board):
     #end-for
 #end-def
 
-def check_finished(board):
+def checkFinished(board):
     for i in range(len(board)):
         for j in range(len(board)):
-            if board[i][j] == 0:
+            if board[i][j] == "0":
                 return False    
             #end if
         #end for
@@ -129,14 +129,20 @@ def check_finished(board):
     return True
 #end def
 
+def checkBox(board, coordenate):
+    if board[int(coordenate[0])][int(coordenate[1])] == "0":
+        return True
+    #end if
+    return False
+#end def
 
-def select_move(board):
-    finished = False
-    parameters = False
+
+def selectMove(board):
+    finished = False #Verificar que el juego no haya finalizado (cuando todas las casillas tienen color)
     while not finished:
-        finished = check_finished(board)
-        print(finished)
-        while not parameters:
+        parameters = False #Verificar que los parámetros estén correctos
+        emptyBox = False #Verificar que haya seleccionado una casilla vacía
+        while not parameters and not emptyBox:
             print("Recuerde que los colores son:  ", red + " {:4}".format("Red"), green + " {:6}".format("Green"), blue + " {:5}".format("Blue"), yellow + " {:7}".format("Yellow"), white + " {:6}".format("White"), cyan + " {:5}".format("Cyan"), purple + " {:7}".format("Purple"))
             move = str(input("Digite la inicial del color que desea utilizar y la casilla que desea jugar (Ej: R 34): "))
             movements = move.split()
@@ -147,6 +153,9 @@ def select_move(board):
                             if len(movements[1])  == 2:
                                 if int(movements[1][0]) >= 0 and int(movements[1][0]) < len(board) and int(movements[1][1]) >= 0 and int(movements[1][0]) < len(board):
                                     parameters = True
+                                    emptyBox = checkBox(board, movements[1])
+                                    if not emptyBox:
+                                        print("******La casilla ya ha sido seleccionada.\n") #creo que esto toca cambiarlo
                                 else:
                                     print("******Número de casilla incorrecta.\n")
                                 #end if
@@ -167,6 +176,9 @@ def select_move(board):
             #end if
         #end while
         #######Continuación del juego
-        finished = True #Mientras continuamos el juego para verificar si ya terminó
+        board[int(movements[1][0])][int(movements[1][1])] = movements[0].upper()
+        showBoard(board)
+        finished = checkFinished(board)
+        print(finished)
     #end while
 #end def
