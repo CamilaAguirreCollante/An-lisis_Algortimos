@@ -4,12 +4,18 @@
         Jessica Tatiana Naizaque Guevara
 """
 import copy
-from operator import truediv
 import random
-from tabnanny import check
 from colorama import *
 
 init(autoreset=True)
+paths = []
+pathR = []
+pathG = []
+pathY = []
+pathB = []
+pathW = []
+pathC = []
+pathP = []
 #definir colores que serán usados
 yellow = Back.YELLOW
 blue = Back.BLUE
@@ -144,7 +150,96 @@ def checkBox(board, color, coordenate):
     if "!" in board[i][j]:
         print("******No puede cambiar una casilla inicial.\n")
     #end if
-    return False
+    return ['F', False]
+#end def
+
+def checkE(element):
+    if len(pathR) > 0:
+        for r in range (len(pathR)):
+            print('Long. R', len(pathR))
+            print(r,':', pathR[r])
+            if element == pathR[r]:
+                pathR.remove(element)
+                return True
+            #end if
+        #end for
+    #end if
+    if len(pathB) > 0:
+        for b in range (len(pathB)):
+            if element == pathB[b]:
+                pathB.remove(element)
+                return True
+            #end if
+        #end for
+    #end if
+    if len(pathY) > 0:
+        for y in range (len(pathY)):
+            if element == pathY[y]:
+                pathY.remove(element)
+                return True
+            #end if
+        #end for
+    #end if
+    if len(pathG) > 0:    
+        for g in range (len(pathG)):
+            print('Long. G', len(pathG))
+            print(g, ': ', pathG[g])
+            if element == pathG[g]:
+                pathG.remove(element)
+                return True
+            #end if
+        #end for
+    #end if
+    if len(pathW) > 0:
+        for w in range (len(pathW)):
+            if element == pathW[w]:
+                pathW.remove(element)
+                return True
+            #end if
+        #end for
+    #end if
+    if len(pathC) > 0:
+        for c in range (len(pathC)):
+            if element == pathC[c]:
+                pathC.remove(element)
+                return True
+            #end if
+        #end for
+    #end if
+    if len(pathP) > 0:
+        for p in range (len(pathP)):
+            if element == pathP[p]:
+                pathP.remove(element)
+                return True
+            #end if
+        #end for
+    #end if
+#end def
+
+def addPath(color, coordenate):
+    checkE(coordenate)
+    if color == 'R':
+        pathR.append(coordenate)
+    elif color == 'G':
+        pathG.append(coordenate)
+    elif color == 'Y':
+        pathY.append(coordenate)
+    elif color == 'W':
+        pathW.append(coordenate)
+    elif color == 'B':
+        pathB.append(coordenate)
+    elif color == 'C':
+        pathC.append(coordenate)
+    elif color == 'P':
+        pathP.append(coordenate)
+    #end if
+#end def
+
+def addPaths(path):
+    if len(path) > 0:
+        paths.append(path)
+    #end if
+    print(paths)
 #end def
 
 '''
@@ -168,7 +263,9 @@ def selectMove(board):
                             if len(movements[1])  == 2:
                                 if (int(movements[1][0]) >= 0) and (int(movements[1][0]) < len(board)) and (int(movements[1][1]) >= 0) and (int(movements[1][1]) < len(board)):
                                     boxChecked = checkBox(board, movements[0].upper(), movements[1])
-                                    #checkAdjacents(board, boxChecked[0])
+                                    addPath(movements[0].upper(), movements[1])
+                                    #if boxChecked[0] != 'F':
+                                        #checkAdjacents(board, boxChecked[0])
                                     parameters = boxChecked[1]
                                     #Verificar que no tenga más de dos adyacentes
                                 else:
@@ -195,6 +292,13 @@ def selectMove(board):
         finished = checkFinished(board)
         #print(finished)
         if finished:
+            print(pathR)
+            print(pathB)
+            print(pathC)
+            print(pathY)
+            print(pathW)
+            print(pathG)
+            print(pathP)
             win = checkWinner(board)
             if win == False:
                 finished = False
@@ -202,6 +306,14 @@ def selectMove(board):
                 print("\t\t\t\nPor favor, siga intentando :D")
             else:
                 finished = True
+                paths.clear()
+                pathR.clear()
+                pathB.clear()
+                pathG.clear()
+                pathY.clear()
+                pathW.clear()
+                pathC.clear()
+                pathP.clear()
                 print("\t\tHa superado el nivel con éxito! ")
             #end if
         #end if
