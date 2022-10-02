@@ -8,3 +8,5 @@ Tamaños de tablero:
 Colores:
     Juego original: Amarillo, Azul(oscuro), Rojo, Verde, Naranja, Azul(cielo), Morado, Fucsia, Vinotinto
     Colores corres: yellow,   blue,         red,  green, white,   cyan       , purple
+Niveles:
+    Para cada tamaño del tablero, se cuenta con 10 niveles.

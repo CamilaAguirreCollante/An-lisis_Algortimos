@@ -19,13 +19,16 @@ def gameMenu():
     print("\t\t6. Salir")
     option = int(input("\tPor favor elija el tamaño del tablero: "))
     
-    
-
     while not salir:
         if option == 1:
-            board = createBoard(5)
+            level = randomLevel(5)
+            path = pathC(5, level, 'C')
+            pathS = pathC(5, level, 'S')
+            board = createBoard(path)
+            boardS = createBoard(pathS)
+            #print(board)
             showBoard(board)
-            selectMove(board)
+            selectMove(board, boardS)
             salir = True
         elif option == 2:
             board = createBoard(6)

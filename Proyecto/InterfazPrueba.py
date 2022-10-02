@@ -8,7 +8,6 @@ from operator import truediv
 import random
 from tabnanny import check
 from colorama import *
-#from termcolor import colored, cprint
 
 init(autoreset=True)
 #definir colores que serán usados
@@ -20,75 +19,52 @@ cyan = Back.CYAN
 purple = Back.MAGENTA
 white = Back.WHITE
 
+''' elegir de manera aleatoria el nivel a jugar
+@Entradas -> dim: dimensiones del tablero que se desea jugar
+@Salidas -> numBoard: número de tablero a jugar
 '''
-@Entradas -> dim=dimensiones del tablero de juego
-@Salida -> creación del tablero de juego
-'''
-def createBoard(dim):
-    # board = []
-    # for i in range(dim):
-    #     board.append([])
-    #     for j in range(dim):
-    #         board[i].append(0)
-    #     #end-for
-    # #end-for
-
+def randomLevel(dim):
     if dim == 9:
         numBoard = random.randint(1, 7)
     else:
         numBoard =  random.randint(1, 10)
     #end if
-    path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(numBoard) + ".txt"
-    with open(path, "r") as f:
-        f1 = f.readlines()
+    return numBoard
+#end def
 
-    # board 
-    lines = [x[:-1] for x in f1]
-    board = [[str(x) for x in y.split(" ")] for y in lines]
-    print(board)
+''' Retornar la ruta apropiada para la creación de tableros
+'''
+def pathC(dim, level, action):
+    if action == 'C':
+        path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(level) + ".txt"
+    elif action == 'S':
+        path = "SoluciónN" + str(dim) + "X" + str(dim) + "/" + str(level) + ".txt"
+    #end if
+    return path
+#end def
+
+''' creación del tablero de juego
+@Entradas -> name: nombre del del archivo que se leerá
+@Salida -> board: tablero de juego
+'''
+def createBoard(name):
+    board = []
+    with open(name, "r") as file:
+        for lines in file:
+            board.append(lines.split())
+        #end for
     return board
-#end-def
+#end def
+
+''' creación tablero solucionado
+@Entradas
+@Salidas
+'''
 
 '''
-@Entradas -> tablero de juego
-@Salida -> ubica los colores iniciales
+@Entradas -> board=tablero de juego
+@Salida -> mostrar el tablero de juego
 '''
-def initialBoard(board):
-    boardTemp = copy.deepcopy(board)
-    dim = len(boardTemp)
-    if dim == 5:
-        boardTemp[0][0] = "R!"
-        boardTemp[4][1] = "R!"
-        boardTemp[0][2] = "G!"
-        boardTemp[3][1] = "G!"
-        boardTemp[1][2] = "B!"
-        boardTemp[4][2] = "B!"
-        boardTemp[3][3] = "Y!"
-        boardTemp[0][4] = "Y!"
-        boardTemp[4][3] = "W!"
-        boardTemp[1][4] = "W!"
-    elif dim == 6:
-        boardTemp[0][0] = "G!"
-        boardTemp[4][0] = "G!"
-        boardTemp[5][0] = "Y!"
-        boardTemp[0][1] = "Y!"
-        boardTemp[0][2] = "C!"
-        boardTemp[2][2] = "C!"
-        boardTemp[0][4] = "R!"
-        boardTemp[3][2] = "R!"
-        boardTemp[1][4] = "W!"
-        boardTemp[4][2] = "W!"
-        boardTemp[0][5] = "B!"
-        boardTemp[5][2] = "B!"
-    for i in range(len(boardTemp)):
-        for j in range(len(boardTemp)):
-            if boardTemp[i][j] == 0:
-                boardTemp[i][j] = "0"
-            #end-if
-        #end-for
-    #end-for
-    return boardTemp
-
 def showBoard(board):
     boardTemp = copy.deepcopy(board)
     print("-"*(7 * len(boardTemp)+1))
@@ -126,17 +102,38 @@ def showBoard(board):
                 boardTemp[i][j]=str(i)+str(j)
                 print("| ", end = "")
                 print(Back.BLACK + " {:3}".format(boardTemp[i][j]), end = " ")
-                #print("| {:4}".format(boardTemp[i][j]), end = " ")
-        #end-for
+            #end if
+        #end for
         print("|")
         print("-"*(7 * len(boardTemp)+1))
-    #end-for
-#end-def
-
-def checkWinner(board):
-    pass
+    #end for
 #end def
 
+'''
+@Entradas ->
+@Salida -> 
+'''
+def checkWinner(board, boardSolved):
+    n = len(board)
+    counter = 0
+    for i in range (n):
+        for j in range (n):
+            if board[i][j] == boardSolved[i][j]:
+                counter += 1
+            #end if
+        #end for
+    #end for
+    if counter == (n*n):
+        return True
+    else:
+        return False
+    #end if
+#end def
+
+'''
+@Entradas ->
+@Salida -> 
+'''
 def checkFinished(board):
     for i in range(len(board)):
         for j in range(len(board)):
@@ -148,11 +145,15 @@ def checkFinished(board):
     return True
 #end def
 
+'''
+@Entradas ->
+@Salida -> 
+'''
 def checkBox(board, color, coordenate):
     i = int(coordenate[0])
     j = int(coordenate[1])
     n = len(board)
-    if board[i][j] == "0":
+    if board[i][j] == "0" or "!" not in board[i][j]:
         if i > 0:
             if board[i-1][j] == color or board[i-1][j] == color+"!": #Si su casilla de arriba es del mismo color
                 return True
@@ -174,23 +175,24 @@ def checkBox(board, color, coordenate):
             #end if
         #end if
         print("******No hay casillas adyacentes del color seleccionado.\n")
-    elif "!" not in board[i][j]:
-        return True
-    #end if
     if "!" in board[i][j]:
         print("******No puede cambiar una casilla inicial.\n")
     #end if
     return False
 #end def
 
-
-def selectMove(board):
+'''
+@Entradas ->
+@Salida -> 
+'''
+def selectMove(board, boardS):
     finished = False #Verificar que el juego no haya finalizado (cuando todas las casillas tienen color)
     win = False
     while not finished:
         parameters = False #Verificar que los parámetros estén correctos y que haya seleccionado una casilla correcta
         while not parameters:
-            print("Recuerde que los colores son:  ", red + " {:4}".format("Red"), green + " {:6}".format("Green"), blue + " {:5}".format("Blue"), yellow + " {:7}".format("Yellow"), white + " {:6}".format("White"), cyan + " {:5}".format("Cyan"), purple + " {:7}".format("Purple"))
+            print("Recuerde que los colores son:  ", red + " {:4}".format("Red"), green + " {:6}".format("Green"), blue + " {:5}".format("Blue"), yellow + " {:7}".format("Yellow"), white + " {:6}".format("White"), cyan + " {:5}".format("Cyan"), purple + " {:7}".format("Purple"), end = " ")
+            print("\n")
             move = str(input("Digite la inicial del color que desea utilizar y la casilla que desea jugar (Ej: R 34): "))
             movements = move.split()
             if len(movements) == 2:
@@ -198,7 +200,7 @@ def selectMove(board):
                     if movements[1].isnumeric():
                         if movements[0].upper() == "R" or movements[0].upper() == "G" or movements[0].upper() == "B" or movements[0].upper() == "Y" or movements[0].upper() == "W" or movements[0].upper() == "C" or movements[0].upper() == "P": 
                             if len(movements[1])  == 2:
-                                if int(movements[1][0]) >= 0 and int(movements[1][0]) < len(board) and int(movements[1][1]) >= 0 and int(movements[1][0]) < len(board):
+                                if (int(movements[1][0]) >= 0) and (int(movements[1][0]) < len(board)) and (int(movements[1][1]) >= 0) and (int(movements[1][1]) < len(board)):
                                     parameters = checkBox(board, movements[0].upper(), movements[1])
                                     #Verificar que no tenga más de dos adyacentes
                                 else:
@@ -223,7 +225,17 @@ def selectMove(board):
         board[int(movements[1][0])][int(movements[1][1])] = movements[0].upper()
         showBoard(board)
         finished = checkFinished(board)
-        print(finished)
+        #print(finished)
+        if finished:
+            win = checkWinner(board, boardS)
+            if win == False:
+                finished = False
+                print("\t\tNo ha completado de manera correcta el nivel :(")
+                print("\t\t\t\nPor favor, siga intentando :D")
+            else:
+                finished = True
+                print("\t\tHa superado el nivel con éxito! ")
+            #end if
+        #end if
     #end while
-    win = checkWinner(board)
 #end def
