@@ -1,5 +1,5 @@
-G Y 0 Y W
+G! Y! 0 Y! W!
 0 0 0 0 0
-R 0 W B 0
-0 G 0 G 0
-0 R B R b
+R! 0 W! B! 0
+0 0 0 G! 0
+0 0 0 R! B!
