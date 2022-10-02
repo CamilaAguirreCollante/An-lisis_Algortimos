@@ -1,0 +1,6 @@
+R R R R R R
+R! B! B G! G R
+Y Y! B B G R
+Y W! W B G R!
+Y Y! W B G! B!
+W! W W B B B

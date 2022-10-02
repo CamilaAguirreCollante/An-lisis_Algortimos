@@ -26,19 +26,32 @@ def gameMenu():
             pathS = pathC(5, level, 'S')
             board = createBoard(path)
             boardS = createBoard(pathS)
-            #print(board)
+            print("\n\n")
+            print("\t\t Nivel", level)
             showBoard(board)
             selectMove(board, boardS)
             salir = True
         elif option == 2:
-            board = createBoard(6)
+            level = randomLevel(6)
+            path = pathC(6, level, 'C')
+            pathS = pathC(6, level, 'S')
+            board = createBoard(path)
+            boardS = createBoard(pathS)
+            print("\n\n")
+            print("\t\t Nivel", level)
             showBoard(board)
-            selectMove(board)
+            selectMove(board, boardS)
             salir = True
         elif option == 3:
-            board = createBoard(7)
+            level = randomLevel(7)
+            path = pathC(7, level, 'C')
+            pathS = pathC(7, level, 'S')
+            board = createBoard(path)
+            boardS = createBoard(pathS)
+            print("\n\n")
+            print("\t\t Nivel", level)
             showBoard(board)
-            selectMove(board)
+            selectMove(board, boardS)
             salir = True
         elif option == 4:
             board = createBoard(8)

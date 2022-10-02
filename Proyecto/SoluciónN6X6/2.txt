@@ -1,0 +1,6 @@
+Y! Y Y Y Y Y
+R R R R R Y
+R G G G R Y
+R! G! B! G! R Y
+Y! B! B R! R Y
+Y Y Y Y Y Y

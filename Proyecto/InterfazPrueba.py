@@ -56,13 +56,8 @@ def createBoard(name):
     return board
 #end def
 
-''' creación tablero solucionado
-@Entradas
-@Salidas
 '''
-
-'''
-@Entradas -> board=tablero de juego
+@Entradas -> board: tablero de juego
 @Salida -> mostrar el tablero de juego
 '''
 def showBoard(board):
