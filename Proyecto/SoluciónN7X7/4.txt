@@ -1,7 +1,0 @@
-G G G G G G G
-G R R R R R! G
-G! R! W! G! G G G
-C! P! W Y Y Y Y!
-C P W Y! W W W
-C P W W W B! W
-C! P! B! B B B W!

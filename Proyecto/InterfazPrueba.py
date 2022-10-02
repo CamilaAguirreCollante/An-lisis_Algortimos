@@ -19,42 +19,24 @@ cyan = Back.CYAN
 purple = Back.MAGENTA
 white = Back.WHITE
 
-''' elegir de manera aleatoria el nivel a jugar
-@Entradas -> dim: dimensiones del tablero que se desea jugar
-@Salidas -> numBoard: número de tablero a jugar
 '''
-def randomLevel(dim):
+@Entradas -> dim=dimensiones del tablero de juego
+@Salida -> creación del tablero de juego
+'''
+def createBoard(dim):
     if dim == 9:
         numBoard = random.randint(1, 7)
     else:
         numBoard =  random.randint(1, 10)
     #end if
-    return numBoard
-#end def
-
-''' Retornar la ruta apropiada para la creación de tableros
-'''
-def pathC(dim, level, action):
-    if action == 'C':
-        path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(level) + ".txt"
-    elif action == 'S':
-        path = "SoluciónN" + str(dim) + "X" + str(dim) + "/" + str(level) + ".txt"
-    #end if
-    return path
-#end def
-
-''' creación del tablero de juego
-@Entradas -> name: nombre del del archivo que se leerá
-@Salida -> board: tablero de juego
-'''
-def createBoard(name):
+    path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(numBoard) + ".txt"
     board = []
-    with open(name, "r") as file:
+    with open(path, "r") as file:
         for lines in file:
             board.append(lines.split())
         #end for
     return board
-#end def
+#end-def
 
 '''
 @Entradas -> board: tablero de juego
@@ -109,19 +91,7 @@ def showBoard(board):
 @Salida -> 
 '''
 def checkWinner(board, boardSolved):
-    n = len(board)
-    counter = 0
-    for i in range (n):
-        for j in range (n):
-            if board[i][j] == boardSolved[i][j]:
-                counter += 1
-            #end if
-        #end for
-    #end for
-    if counter == (n*n):
-        return True
-    else:
-        return False
+    return False
     #end if
 #end def
 

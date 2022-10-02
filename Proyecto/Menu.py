@@ -21,37 +21,19 @@ def gameMenu():
     
     while not salir:
         if option == 1:
-            level = randomLevel(5)
-            path = pathC(5, level, 'C')
-            pathS = pathC(5, level, 'S')
-            board = createBoard(path)
-            boardS = createBoard(pathS)
-            print("\n\n")
-            print("\t\t Nivel", level)
+            board = createBoard(5)
             showBoard(board)
-            selectMove(board, boardS)
+            selectMove(board)
             salir = True
         elif option == 2:
-            level = randomLevel(6)
-            path = pathC(6, level, 'C')
-            pathS = pathC(6, level, 'S')
-            board = createBoard(path)
-            boardS = createBoard(pathS)
-            print("\n\n")
-            print("\t\t Nivel", level)
+            board = createBoard(6)
             showBoard(board)
-            selectMove(board, boardS)
+            selectMove(board)
             salir = True
         elif option == 3:
-            level = randomLevel(7)
-            path = pathC(7, level, 'C')
-            pathS = pathC(7, level, 'S')
-            board = createBoard(path)
-            boardS = createBoard(pathS)
-            print("\n\n")
-            print("\t\t Nivel", level)
+            board = createBoard(7)
             showBoard(board)
-            selectMove(board, boardS)
+            selectMove(board)
             salir = True
         elif option == 4:
             board = createBoard(8)
