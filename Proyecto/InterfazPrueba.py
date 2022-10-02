@@ -90,7 +90,7 @@ def showBoard(board):
 @Entradas ->
 @Salida -> 
 '''
-def checkWinner(board, boardSolved):
+def checkWinner(board):
     return False
     #end if
 #end def
@@ -150,7 +150,7 @@ def checkBox(board, color, coordenate):
 @Entradas ->
 @Salida -> 
 '''
-def selectMove(board, boardS):
+def selectMove(board):
     finished = False #Verificar que el juego no haya finalizado (cuando todas las casillas tienen color)
     win = False
     while not finished:
@@ -192,7 +192,7 @@ def selectMove(board, boardS):
         finished = checkFinished(board)
         #print(finished)
         if finished:
-            win = checkWinner(board, boardS)
+            win = checkWinner(board)
             if win == False:
                 finished = False
                 print("\t\tNo ha completado de manera correcta el nivel :(")
