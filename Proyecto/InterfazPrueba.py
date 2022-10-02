@@ -30,6 +30,7 @@ def createBoard(dim):
         numBoard =  random.randint(1, 10)
     #end if
     path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(numBoard) + ".txt"
+    path = "Niveles5X5/1.txt"
     board = []
     with open(path, "r") as file:
         for lines in file:
@@ -121,22 +122,22 @@ def checkBox(board, color, coordenate):
     if board[i][j] == "0" or "!" not in board[i][j]:
         if i > 0:
             if board[i-1][j] == color or board[i-1][j] == color+"!": #Si su casilla de arriba es del mismo color
-                return True
+                return [str(i-1) + "," + str(j), True]
             #end if
         #end if
         if j > 0:
             if board[i][j-1] == color or board[i][j-1] == color+"!": #Si su casilla izquierda es del mismo color
-                return True
+                return [str(i) + "," + str(j-1), True]
             #end if
         #end if
         if i < n-1:
             if board[i+1][j] == color or board[i+1][j] == color+"!": #Si su casilla de abajo es del mismo color
-                return True
+                return [str(i+1) + "," + str(j), True]
             #end if
         #end if
         if j < n-1:
             if board[i][j+1] == color or board[i][j+1] == color+"!": #Si su casilla derecha es del mismo color
-                return True
+                return [str(i) + "," + str(j+1), True]
             #end if
         #end if
         print("******No hay casillas adyacentes del color seleccionado.\n")
@@ -166,7 +167,9 @@ def selectMove(board):
                         if movements[0].upper() == "R" or movements[0].upper() == "G" or movements[0].upper() == "B" or movements[0].upper() == "Y" or movements[0].upper() == "W" or movements[0].upper() == "C" or movements[0].upper() == "P": 
                             if len(movements[1])  == 2:
                                 if (int(movements[1][0]) >= 0) and (int(movements[1][0]) < len(board)) and (int(movements[1][1]) >= 0) and (int(movements[1][1]) < len(board)):
-                                    parameters = checkBox(board, movements[0].upper(), movements[1])
+                                    boxChecked = checkBox(board, movements[0].upper(), movements[1])
+                                    #checkAdjacents(board, boxChecked[0])
+                                    parameters = boxChecked[1]
                                     #Verificar que no tenga más de dos adyacentes
                                 else:
                                     print("******Número de casilla incorrecta.\n")
