@@ -339,64 +339,73 @@ def addPath(color, coordenate, board):
 def selectMove(board):
     finished = False #Verificar que el juego no haya finalizado (cuando todas las casillas tienen color)
     win = False
-    while not finished:
+    out = False
+    while not finished and not out:
         parameters = False #Verificar que los parámetros estén correctos y que haya seleccionado una casilla correcta
         while not parameters:
             print("Recuerde que los colores son:  ", red + " {:4}".format("Red"), green + " {:6}".format("Green"), blue + " {:5}".format("Blue"), yellow + " {:7}".format("Yellow"), white + " {:6}".format("White"), cyan + " {:5}".format("Cyan"), purple + " {:7}".format("Purple"), end = " ")
             print("\n")
+            print("(Si desea salir del juego ingrese la letra X)")
             move = str(input("Digite la inicial del color que desea utilizar y la casilla que desea jugar (Ej: R 34): "))
-            movements = move.split()
-            if len(movements) == 2:
-                if movements[0].isalpha():
-                    if movements[1].isnumeric():
-                        if movements[0].upper() == "R" or movements[0].upper() == "G" or movements[0].upper() == "B" or movements[0].upper() == "Y" or movements[0].upper() == "W" or movements[0].upper() == "C" or movements[0].upper() == "P": 
-                            if len(movements[1])  == 2:
-                                if (int(movements[1][0]) >= 0) and (int(movements[1][0]) < len(board)) and (int(movements[1][1]) >= 0) and (int(movements[1][1]) < len(board)):
-                                    boxChecked = checkBox(board, movements[0].upper(), movements[1])
-                                    addPath(movements[0].upper(), movements[1], board)
-                                    #if boxChecked[0] != 'F':
-                                        #checkAdjacents(board, boxChecked[0])
-                                    parameters = boxChecked[1]
-                                    #Verificar que no tenga más de dos adyacentes
+            if move.upper() != "X":
+                movements = move.split()
+                if len(movements) == 2:
+                    if movements[0].isalpha():
+                        if movements[1].isnumeric():
+                            if movements[0].upper() == "R" or movements[0].upper() == "G" or movements[0].upper() == "B" or movements[0].upper() == "Y" or movements[0].upper() == "W" or movements[0].upper() == "C" or movements[0].upper() == "P": 
+                                if len(movements[1])  == 2:
+                                    if (int(movements[1][0]) >= 0) and (int(movements[1][0]) < len(board)) and (int(movements[1][1]) >= 0) and (int(movements[1][1]) < len(board)):
+                                        boxChecked = checkBox(board, movements[0].upper(), movements[1])
+                                        addPath(movements[0].upper(), movements[1], board)
+                                        #if boxChecked[0] != 'F':
+                                            #checkAdjacents(board, boxChecked[0])
+                                        parameters = boxChecked[1]
+                                        #Verificar que no tenga más de dos adyacentes
+                                    else:
+                                        print("******Número de casilla incorrecta.\n")
+                                    #end if
                                 else:
                                     print("******Número de casilla incorrecta.\n")
                                 #end if
                             else:
-                                print("******Número de casilla incorrecta.\n")
+                                print("******Inicial de color inválida.\n")
                             #end if
                         else:
-                            print("******Inicial de color inválida.\n")
+                            print ("******Parámetro casilla incorrecto.\n")
                         #end if
                     else:
-                        print ("******Parámetro casilla incorrecto.\n")
+                        print ("******Parámetro color incorrecto.\n")
                     #end if
                 else:
-                    print ("******Parámetro color incorrecto.\n")
+                    print("******Cantidad de parámetros enviados incorrecta.\n")
                 #end if
             else:
-                print("******Cantidad de parámetros enviados incorrecta.\n")
+                out = True
+                parameters = True
             #end if
         #end while
-        board[int(movements[1][0])][int(movements[1][1])] = movements[0].upper()
-        showBoard(board)
-        finished = checkFinished(board)
-        #print(finished)
-        if finished:
-            win = checkWinner(board)
-            if win == False:
-                finished = False
-                print("\t\tNo ha completado de manera correcta el nivel :(")
-                print("\t\t\t\nPor favor, siga intentando :D")
-            else:
-                finished = True
-                pathR.clear()
-                pathB.clear()
-                pathG.clear()
-                pathY.clear()
-                pathW.clear()
-                pathC.clear()
-                pathP.clear()
-                print("\t\tHa superado el nivel con éxito! ")
+        if not out:
+            board[int(movements[1][0])][int(movements[1][1])] = movements[0].upper()
+            showBoard(board)
+            finished = checkFinished(board)
+            #print(finished)
+            if finished:
+                win = checkWinner(board)
+                if win == False:
+                    finished = False
+                    print("\t\tNo ha completado de manera correcta el nivel :(")
+                    print("\t\t\t\nPor favor, siga intentando :D")
+                else:
+                    finished = True
+                    pathR.clear()
+                    pathB.clear()
+                    pathG.clear()
+                    pathY.clear()
+                    pathW.clear()
+                    pathC.clear()
+                    pathP.clear()
+                    print("\t\tHa superado el nivel con éxito! ")
+                #end if
             #end if
         #end if
     #end while
