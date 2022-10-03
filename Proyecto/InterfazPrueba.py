@@ -73,7 +73,6 @@ def createBoard(dim):
     defInitials(board)
     return board
 #end-def
-
 '''
 @Entradas -> board: tablero de juego
 @Salida -> mostrar el tablero de juego
@@ -120,227 +119,6 @@ def showBoard(board):
         print("|")
         print("-"*(7 * len(boardTemp)+1))
     #end for
-#end def
-
-def checkPath(initial, path, dim):
-    win1 = False
-    win2 = False
-    if (int(initial[0][0]) > 0) or (int(initial[1][0]) > 0): #Casilla Arriba
-        new = str(int(initial[0][0])-1) + initial[0][1]
-        if new in path:
-            win1 = True
-        new = str(int(initial[1][0])-1) + initial[1][1]
-        if new in path:
-            win2 = True
-    #end if
-    if (int(initial[0][0]) < dim-1) or (int(initial[1][0]) < dim-1): #Casilla Abajo
-        new = str(int(initial[0][0])+1) + initial[0][1]
-        if new in path:
-            win1 = True
-        new = str(int(initial[1][0])+1) + initial[1][1]
-        if new in path:
-            win2 = True
-    #end if
-    if (int(initial[0][1]) > 0) or (int(initial[1][1]) > 0): #Casilla Izquierda
-        new = initial[0][0] + str(int(initial[0][1])-1)
-        if new in path:
-            win1 = True
-        new = initial[1][0] + str(int(initial[1][1])-1)
-        if new in path:
-            win2 = True
-    #end if
-    if (int(initial[0][1]) < dim-1) or (int(initial[1][1]) < dim-1): #Casilla Derecha
-        new = initial[0][0] + str(int(initial[0][1])+1)
-        if new in path:
-            win1 = True
-        new = initial[1][0] + str(int(initial[1][1])+1)
-        if new in path:
-            win2 = True
-    #end if
-    if win1 and win2:
-        return True
-    #end if
-#end def
-
-def removeE(color, element):
-    if color == 'R' and element not in rInitial:
-        pathR.remove(element)
-    elif color == 'G' and element not in gInitial:
-        pathG.remove(element)
-    elif color == 'Y' and element not in yInitial:
-            pathY.remove(element)
-    elif color == 'W' and element not in wInitial:
-        pathW.remove(element)
-    elif color == 'B' and element not in bInitial:
-        pathB.remove(element)
-    elif color == 'C' and element not in cInitial:
-        pathC.remove(element)
-    elif color == 'P' and element not in pInitial:
-        pathP.remove(element)
-    #end if
-    print(pathR)
-
-def checkAdjacents(board, coordBox):
-    i = int(coordBox.split(",")[0])
-    j = int(coordBox.split(",")[1])
-    n = len(board)
-    color = (board[i][j])[0]
-    countAdjacents = 0
-    adjacents = []
-    if i > 0:
-        if board[i-1][j] == color or board[i-1][j] == color+"!": #Si su casilla de arriba es del mismo color
-            countAdjacents += 1
-            adjacents.append([i-1, j])
-        #end if
-    #end if
-    if j > 0:
-        if board[i][j-1] == color or board[i][j-1] == color+"!": #Si su casilla izquierda es del mismo color
-            countAdjacents += 1
-            adjacents.append([i, j-1])
-        #end if
-    #end if
-    if i < n-1:
-        if board[i+1][j] == color or board[i+1][j] == color+"!": #Si su casilla de abajo es del mismo color
-            countAdjacents += 1
-            adjacents.append([i+1, j])
-        #end if
-    #end if
-    if j < n-1:
-        if board[i][j+1] == color or board[i][j+1] == color+"!": #Si su casilla derecha es del mismo color
-            countAdjacents += 1
-            adjacents.append([i, j+1])
-        #end if
-    #end if
-    print(i, " ", j, ": ", adjacents)
-    if board[i][j] == color+"!" and countAdjacents > 0:
-        board[adjacents[0][0]][adjacents[0][1]] = '0'
-        print("ELEMENTO: ", str(adjacents[0][0])+str(adjacents[0][1]))
-        removeE(color, str(adjacents[0][0])+str(adjacents[0][1]))
-    elif countAdjacents == 2:
-        x = adjacents[0][0]
-        y = adjacents[0][1]
-        if board[x][y] != color+"!":
-            board[x][y] = "0"
-        print("ELEMENTO: ", str(adjacents[0][0])+str(adjacents[0][1]))
-        removeE(color, str(x)+str(y))
-        noAdj = False
-        while noAdj:
-            if x > 0:
-                if board[x-1][y] != color+"!" and i != x-1 and j != y:
-                    board[x-1][y] = "0"
-                    x = x - 1 
-                elif board[x-1][y] == color+"!":
-                    noAdj = True
-            if y > 0:
-                if board[x][y-1] != color+"!" and i != x and j != y-1:
-                    board[x][y-1] = "0"
-                    y = y - 1  
-                elif board[x][y-1] == color+"!":
-                    noAdj = True
-            if x < n-1:
-                if board[x+1][y] != color+"!" and i != x+1 and j != y:
-                    board[x+1][y] = "0"
-                    x = x + 1
-                elif board[x+1][y] == color+"!":
-                    noAdj = True  
-            if y < n-1:
-                if board[x][y+1] != color+"!" and i != x and j != y+1:
-                    board[x][y+1] = "0"
-                    y = y + 1
-                elif board[x][y+1] == color+"!":
-                    noAdj = True
-                            
-
-#end def
-
-'''
-@Entradas ->
-@Salida -> 
-'''
-def checkWinner(board):
-    dim = len(board)
-    if (len(pathR)) > 0:
-        winR = checkPath(rInitial, pathR, dim)
-    else:
-        winR = True
-    if (len(pathB)) > 0:
-        winB = checkPath(bInitial, pathB, dim)
-    else:
-        winB = True
-    if (len(pathY)) > 0:
-        winY = checkPath(yInitial, pathY, dim)
-    else:
-        winY = True
-    if (len(pathG)) > 0:
-        winG = checkPath(gInitial, pathG, dim)
-    else:
-        winG = True
-    if (len(pathW)) > 0:
-        winW = checkPath(wInitial, pathW, dim)
-    else:
-        winW = True
-    if (len(pathC)) > 0:
-        winC = checkPath(cInitial, pathC, dim)
-    else:
-        winC = True
-    if (len(pathP)) > 0:
-        winP = checkPath(pInitial, pathP, dim)
-    else:
-        winP = True
-    if winR and winB and winY and winG and winW and winC and winP:
-        return True
-    return False
-#end def
-
-'''
-@Entradas ->
-@Salida -> 
-'''
-def checkFinished(board):
-    for i in range(len(board)):
-        for j in range(len(board)):
-            if board[i][j] == "0":
-                return False    
-            #end if
-        #end for
-    #end for
-    return True
-#end def
-
-'''
-@Entradas ->
-@Salida -> 
-'''
-def checkBox(board, color, coordenate):
-    i = int(coordenate[0])
-    j = int(coordenate[1])
-    n = len(board)
-    if board[i][j] == "0" or "!" not in board[i][j]:
-        if i > 0:
-            if board[i-1][j] == color or board[i-1][j] == color+"!": #Si su casilla de arriba es del mismo color
-                return [str(i-1) + "," + str(j), True]
-            #end if
-        #end if
-        if j > 0:
-            if board[i][j-1] == color or board[i][j-1] == color+"!": #Si su casilla izquierda es del mismo color
-                return [str(i) + "," + str(j-1), True]
-            #end if
-        #end if
-        if i < n-1:
-            if board[i+1][j] == color or board[i+1][j] == color+"!": #Si su casilla de abajo es del mismo color
-                return [str(i+1) + "," + str(j), True]
-            #end if
-        #end if
-        if j < n-1:
-            if board[i][j+1] == color or board[i][j+1] == color+"!": #Si su casilla derecha es del mismo color
-                return [str(i) + "," + str(j+1), True]
-            #end if
-        #end if
-        print("******No hay casillas adyacentes del color seleccionado.\n")
-    if "!" in board[i][j]:
-        print("******No puede cambiar una casilla inicial.\n")
-    #end if
-    return ['F', False]
 #end def
 
 def checkE(element, board):
@@ -427,6 +205,287 @@ def addPath(color, coordenate, board):
         pathP.append(coordenate)
     #end if
 #end def
+'''
+'''
+def selectCoor(i, j, color):
+    print("Select coordenate with: ", i, '-', j, 'and', color)
+    print(rInitial)
+    if color == "R":
+        print("Entra validación color")
+        if len(pathR) > 0:
+            print(pathR)
+            if str(i)+str(j) == pathR[len(pathR)-1]:
+                return True
+        else:
+            return True
+        #end if
+    elif color == "B":
+        if len(pathB) > 0:
+            if str(i)+str(j) == pathB[len(pathB)-1]:
+                return True
+        else: 
+            return True
+        #end if
+    elif color == "Y":
+        if len(pathY) > 0:
+            if str(i)+str(j) == pathY[len(pathY)-1]:
+                return True
+        else: 
+            return True
+        #end if
+    elif color == "G":
+            if str(i)+str(j) == pathG[len(pathG)-1]:
+                return True
+        #end if
+    elif color == "W":
+        if len(pathW) > 0:
+            if str(i)+str(j) == pathW[len(pathW)-1]:
+                return True
+        else: 
+            return True
+        #end if
+    elif color == "C":
+        if len(pathC) > 0:
+            if str(i)+str(j) == pathC[len(pathC)-1]:
+                return True
+        else: 
+            return True
+        #end if
+    elif color == "P":
+        if len(pathP) > 0:
+            if str(i)+str(j) == pathP[len(pathP)-1]:
+                return True
+        else: 
+            return True
+        #end if
+    elif color == "R!" or color == "B!" or color == "Y!" or color == "G!" or color == "W!" or color == "C!" or color == "P!":
+        return True
+    #end if
+    return False
+#end def
+''''''
+def removeE(color, element):
+    if color == 'R' and element not in rInitial:
+        pathR.remove(element)
+    elif color == 'G' and element not in gInitial:
+        pathG.remove(element)
+    elif color == 'Y' and element not in yInitial:
+            pathY.remove(element)
+    elif color == 'W' and element not in wInitial:
+        pathW.remove(element)
+    elif color == 'B' and element not in bInitial:
+        pathB.remove(element)
+    elif color == 'C' and element not in cInitial:
+        pathC.remove(element)
+    elif color == 'P' and element not in pInitial:
+        pathP.remove(element)
+    #end if
+    print(pathR)
+
+def checkAdjacents(board, coordBox):
+    i = int(coordBox.split(",")[0])
+    j = int(coordBox.split(",")[1])
+    n = len(board)
+    color = (board[i][j])[0]
+    countAdjacents = 0
+    adjacents = []
+    if i > 0:
+        if board[i-1][j] == color or board[i-1][j] == color+"!": #Si su casilla de arriba es del mismo color
+            countAdjacents += 1
+            adjacents.append([i-1, j])
+        #end if
+    #end if
+    if j > 0:
+        if board[i][j-1] == color or board[i][j-1] == color+"!": #Si su casilla izquierda es del mismo color
+            countAdjacents += 1
+            adjacents.append([i, j-1])
+        #end if
+    #end if
+    if i < n-1:
+        if board[i+1][j] == color or board[i+1][j] == color+"!": #Si su casilla de abajo es del mismo color
+            countAdjacents += 1
+            adjacents.append([i+1, j])
+        #end if
+    #end if
+    if j < n-1:
+        if board[i][j+1] == color or board[i][j+1] == color+"!": #Si su casilla derecha es del mismo color
+            countAdjacents += 1
+            adjacents.append([i, j+1])
+        #end if
+    #end if
+    print("ADYACENTES de",i, " ", j, ": ", adjacents)
+    print("Count:", countAdjacents)
+    if board[i][j] == color+"!" and countAdjacents > 0:
+        board[adjacents[0][0]][adjacents[0][1]] = '0'
+        print("ELEMENTO: ", str(adjacents[0][0])+str(adjacents[0][1]))
+        removeE(color, str(adjacents[0][0])+str(adjacents[0][1]))
+    elif countAdjacents == 2:
+        for a in range(2):
+            print(a)
+            print(adjacents[a][0])
+            x = adjacents[a][0]
+            y = adjacents[a][1]
+            print("X - Y",x, '-', y)
+            if board[x][y] != color+"!" and selectCoor(x,y,board[x][y]):
+                board[x][y] = "0"
+                print("ELEMENTO: ", str(adjacents[0][0])+str(adjacents[0][1]))
+                removeE(color, str(x)+str(y))
+            noAdj = False
+            while noAdj:
+                if x > 0:
+                    if board[x-1][y] != color+"!" and i != x-1 and j != y:
+                        board[x-1][y] = "0"
+                        x = x - 1 
+                    elif board[x-1][y] == color+"!":
+                        noAdj = True
+                if y > 0:
+                    if board[x][y-1] != color+"!" and i != x and j != y-1:
+                        board[x][y-1] = "0"
+                        y = y - 1  
+                    elif board[x][y-1] == color+"!":
+                        noAdj = True
+                if x < n-1:
+                    if board[x+1][y] != color+"!" and i != x+1 and j != y:
+                        board[x+1][y] = "0"
+                        x = x + 1
+                    elif board[x+1][y] == color+"!":
+                        noAdj = True  
+                if y < n-1:
+                    if board[x][y+1] != color+"!" and i != x and j != y+1:
+                        board[x][y+1] = "0"
+                        y = y + 1
+                    elif board[x][y+1] == color+"!":
+                        noAdj = True
+
+'''
+@Entradas ->
+@Salida -> 
+'''
+def checkBox(board, color, coordenate):
+    i = int(coordenate[0])
+    j = int(coordenate[1])
+    n = len(board)
+    if board[i][j] == "0" or "!" not in board[i][j]:
+        print("Entra con", i, '-',j)
+        if i > 0:
+            if (board[i-1][j] == color or board[i-1][j] == color+"!"): #Si su casilla de arriba es del mismo color
+                return [str(i-1) + "," + str(j), True]
+            #end if
+        #end if
+        if j > 0:
+            if (board[i][j-1] == color or board[i][j-1] == color+"!"): #Si su casilla izquierda es del mismo color
+                return [str(i) + "," + str(j-1), True]
+            #end if
+        #end if
+        if i < n-1:
+            if board[i+1][j] == color or board[i+1][j] == color+"!": #Si su casilla de abajo es del mismo color
+                return [str(i+1) + "," + str(j), True]
+            #end if
+        #end if
+        if j < n-1:
+            if board[i][j+1] == color or board[i][j+1] == color+"!": #Si su casilla derecha es del mismo color
+                return [str(i) + "," + str(j+1), True]
+            #end if
+        #end if
+        print("******No hay casillas adyacentes del color seleccionado.\n")
+    if "!" in board[i][j]:
+        print("******No puede cambiar una casilla inicial.\n")
+    #end if
+    return ['F', False]
+#end def
+
+'''
+@Entradas ->
+@Salida -> 
+'''
+def checkFinished(board):
+    for i in range(len(board)):
+        for j in range(len(board)):
+            if board[i][j] == "0":
+                return False    
+            #end if
+        #end for
+    #end for
+    return True
+#end def
+
+def checkPath(initial, path, dim):
+    win1 = False
+    win2 = False
+    if (int(initial[0][0]) > 0) or (int(initial[1][0]) > 0): #Casilla Arriba
+        new = str(int(initial[0][0])-1) + initial[0][1]
+        if new in path:
+            win1 = True
+        new = str(int(initial[1][0])-1) + initial[1][1]
+        if new in path:
+            win2 = True
+    #end if
+    if (int(initial[0][0]) < dim-1) or (int(initial[1][0]) < dim-1): #Casilla Abajo
+        new = str(int(initial[0][0])+1) + initial[0][1]
+        if new in path:
+            win1 = True
+        new = str(int(initial[1][0])+1) + initial[1][1]
+        if new in path:
+            win2 = True
+    #end if
+    if (int(initial[0][1]) > 0) or (int(initial[1][1]) > 0): #Casilla Izquierda
+        new = initial[0][0] + str(int(initial[0][1])-1)
+        if new in path:
+            win1 = True
+        new = initial[1][0] + str(int(initial[1][1])-1)
+        if new in path:
+            win2 = True
+    #end if
+    if (int(initial[0][1]) < dim-1) or (int(initial[1][1]) < dim-1): #Casilla Derecha
+        new = initial[0][0] + str(int(initial[0][1])+1)
+        if new in path:
+            win1 = True
+        new = initial[1][0] + str(int(initial[1][1])+1)
+        if new in path:
+            win2 = True
+    #end if
+    if win1 and win2:
+        return True
+    #end if
+#end def
+'''
+@Entradas ->
+@Salida -> 
+'''
+def checkWinner(board):
+    dim = len(board)
+    if (len(pathR)) > 0:
+        winR = checkPath(rInitial, pathR, dim)
+    else:
+        winR = True
+    if (len(pathB)) > 0:
+        winB = checkPath(bInitial, pathB, dim)
+    else:
+        winB = True
+    if (len(pathY)) > 0:
+        winY = checkPath(yInitial, pathY, dim)
+    else:
+        winY = True
+    if (len(pathG)) > 0:
+        winG = checkPath(gInitial, pathG, dim)
+    else:
+        winG = True
+    if (len(pathW)) > 0:
+        winW = checkPath(wInitial, pathW, dim)
+    else:
+        winW = True
+    if (len(pathC)) > 0:
+        winC = checkPath(cInitial, pathC, dim)
+    else:
+        winC = True
+    if (len(pathP)) > 0:
+        winP = checkPath(pInitial, pathP, dim)
+    else:
+        winP = True
+    if winR and winB and winY and winG and winW and winC and winP:
+        return True
+    return False
+#end def
 
 '''
 @Entradas ->
@@ -452,9 +511,11 @@ def selectMove(board):
                                 if len(movements[1])  == 2:
                                     if (int(movements[1][0]) >= 0) and (int(movements[1][0]) < len(board)) and (int(movements[1][1]) >= 0) and (int(movements[1][1]) < len(board)):
                                         boxChecked = checkBox(board, movements[0].upper(), movements[1])
-                                        #if boxChecked[0] != 'F':
-                                        #    checkAdjacents(board, boxChecked[0]) 
+                                        print(boxChecked)
+                                        if boxChecked[0] != 'F':
+                                            checkAdjacents(board, boxChecked[0]) 
                                         addPath(movements[0].upper(), movements[1], board)
+                                        print(pathR)
                                         parameters = boxChecked[1]
                                         #Verificar que no tenga más de dos adyacentes
                                     else:
@@ -478,6 +539,13 @@ def selectMove(board):
             else:
                 out = True
                 parameters = True
+                pathR.clear()
+                pathB.clear()
+                pathG.clear()
+                pathY.clear()
+                pathW.clear()
+                pathC.clear()
+                pathP.clear()
             #end if
         #end while
         if not out:
