@@ -8,7 +8,6 @@ import random
 from colorama import *
 
 init(autoreset=True)
-paths = []
 pathR = []
 pathG = []
 pathY = []
@@ -36,7 +35,7 @@ def createBoard(dim):
         numBoard =  random.randint(1, 10)
     #end if
     path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(numBoard) + ".txt"
-    path = "Niveles5X5/1.txt"
+    path = "Niveles7X7/1.txt"
     board = []
     with open(path, "r") as file:
         for lines in file:
@@ -93,13 +92,108 @@ def showBoard(board):
     #end for
 #end def
 
+def checkPath(initial, path, dim):
+    win1 = False
+    win2 = False
+    if (int(initial[0][0]) > 0) or (int(initial[1][0]) > 0): #Casilla Arriba
+        new = str(int(initial[0][0])-1) + initial[0][1]
+        if new in path:
+            win1 = True
+        new = str(int(initial[1][0])-1) + initial[1][1]
+        if new in path:
+            win2 = True
+    #end if
+    if (int(initial[0][0]) < dim-1) or (int(initial[1][0]) < dim-1): #Casilla Abajo
+        new = str(int(initial[0][0])+1) + initial[0][1]
+        if new in path:
+            win1 = True
+        new = str(int(initial[1][0])+1) + initial[1][1]
+        if new in path:
+            win2 = True
+    #end if
+    if (int(initial[0][1]) > 0) or (int(initial[1][1]) > 0): #Casilla Izquierda
+        new = initial[0][0] + str(int(initial[0][1])-1)
+        if new in path:
+            win1 = True
+        new = initial[1][0] + str(int(initial[1][1])-1)
+        if new in path:
+            win2 = True
+    #end if
+    if (int(initial[0][1]) < dim-1) or (int(initial[1][1]) < dim-1): #Casilla Derecha
+        new = initial[0][0] + str(int(initial[0][1])+1)
+        if new in path:
+            win1 = True
+        new = initial[1][0] + str(int(initial[1][1])+1)
+        if new in path:
+            win2 = True
+    #end if
+    if win1 and win2:
+        return True
+    #end if
+#end def
 '''
 @Entradas ->
 @Salida -> 
 '''
 def checkWinner(board):
+    dim = len(board)
+    rInitial = []
+    bInitial = []
+    yInitial = []
+    gInitial = []
+    wInitial = []
+    cInitial = []
+    pInitial = []
+    for i in range(dim):
+        for j in range(dim):
+            if board[i][j] == "R!":
+                rInitial.append(str(i)+str(j))
+            elif board[i][j] == "B!":
+                bInitial.append(str(i)+str(j))
+            elif board[i][j] == "Y!":
+                yInitial.append(str(i)+str(j))
+            elif board[i][j] == "G!":
+                gInitial.append(str(i)+str(j))
+            elif board[i][j] == "W!":
+                wInitial.append(str(i)+str(j))
+            elif board[i][j] == "C!":
+                cInitial.append(str(i)+str(j))
+            elif board[i][j] == "P!":
+                pInitial.append(str(i)+str(j))
+            #end if
+        #end for
+    #end for
+    if (len(pathR)) > 0:
+        winR = checkPath(rInitial, pathR, dim)
+    else:
+        winR = True
+    if (len(pathB)) > 0:
+        winB = checkPath(bInitial, pathB, dim)
+    else:
+        winB = True
+    if (len(pathY)) > 0:
+        winY = checkPath(yInitial, pathY, dim)
+    else:
+        winY = True
+    if (len(pathG)) > 0:
+        winG = checkPath(gInitial, pathG, dim)
+    else:
+        winG = True
+    if (len(pathW)) > 0:
+        winW = checkPath(wInitial, pathW, dim)
+    else:
+        winW = True
+    if (len(pathC)) > 0:
+        winC = checkPath(cInitial, pathC, dim)
+    else:
+        winC = True
+    if (len(pathP)) > 0:
+        winP = checkPath(pInitial, pathP, dim)
+    else:
+        winP = True
+    if winR and winB and winY and winG and winW and winC and winP:
+        return True
     return False
-    #end if
 #end def
 
 '''
@@ -156,8 +250,6 @@ def checkBox(board, color, coordenate):
 def checkE(element):
     if len(pathR) > 0:
         for r in range (len(pathR)):
-            print('Long. R', len(pathR))
-            print(r,':', pathR[r])
             if element == pathR[r]:
                 pathR.remove(element)
                 return True
@@ -182,8 +274,6 @@ def checkE(element):
     #end if
     if len(pathG) > 0:    
         for g in range (len(pathG)):
-            print('Long. G', len(pathG))
-            print(g, ': ', pathG[g])
             if element == pathG[g]:
                 pathG.remove(element)
                 return True
@@ -233,13 +323,6 @@ def addPath(color, coordenate):
     elif color == 'P':
         pathP.append(coordenate)
     #end if
-#end def
-
-def addPaths(path):
-    if len(path) > 0:
-        paths.append(path)
-    #end if
-    print(paths)
 #end def
 
 '''
@@ -292,13 +375,6 @@ def selectMove(board):
         finished = checkFinished(board)
         #print(finished)
         if finished:
-            print(pathR)
-            print(pathB)
-            print(pathC)
-            print(pathY)
-            print(pathW)
-            print(pathG)
-            print(pathP)
             win = checkWinner(board)
             if win == False:
                 finished = False
@@ -306,7 +382,6 @@ def selectMove(board):
                 print("\t\t\t\nPor favor, siga intentando :D")
             else:
                 finished = True
-                paths.clear()
                 pathR.clear()
                 pathB.clear()
                 pathG.clear()
