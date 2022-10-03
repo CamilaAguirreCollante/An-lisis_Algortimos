@@ -9,7 +9,6 @@ Menú de juego -> muestra las intrucciones al jugador
 '''
 def gameMenu():
     salir = False
-    
     while not salir:
         print("\t\t\tBienvenido/a a Flow Free!")
         print("\tLos tamaños disponibles para el tablero son: ")
