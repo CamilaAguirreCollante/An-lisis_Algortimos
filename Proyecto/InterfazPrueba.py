@@ -209,7 +209,6 @@ def addPath(color, coordenate, board):
 '''
 def selectCoor(i, j, color):
     print("Select coordenate with: ", i, '-', j, 'and', color)
-    print(rInitial)
     if color == "R":
         print("Entra validación color")
         if len(pathR) > 0:
@@ -220,6 +219,7 @@ def selectCoor(i, j, color):
             return True
         #end if
     elif color == "B":
+        print(pathB)
         if len(pathB) > 0:
             if str(i)+str(j) == pathB[len(pathB)-1]:
                 return True
@@ -234,8 +234,11 @@ def selectCoor(i, j, color):
             return True
         #end if
     elif color == "G":
+        if len(pathG) > 0:
             if str(i)+str(j) == pathG[len(pathG)-1]:
                 return True
+        else: 
+            return True
         #end if
     elif color == "W":
         if len(pathW) > 0:
@@ -319,8 +322,8 @@ def checkAdjacents(board, coordBox):
         board[adjacents[0][0]][adjacents[0][1]] = '0'
         print("ELEMENTO: ", str(adjacents[0][0])+str(adjacents[0][1]))
         removeE(color, str(adjacents[0][0])+str(adjacents[0][1]))
-    elif countAdjacents == 2:
-        for a in range(2):
+    elif countAdjacents >= 2:
+        for a in range(countAdjacents):
             print(a)
             print(adjacents[a][0])
             x = adjacents[a][0]
@@ -515,8 +518,13 @@ def selectMove(board):
                                         if boxChecked[0] != 'F':
                                             checkAdjacents(board, boxChecked[0]) 
                                         addPath(movements[0].upper(), movements[1], board)
+                                        print("La teoría dice que: ")
                                         print(pathR)
+                                        print(pathB)
+                                        print(pathG)
+                                        print(rInitial)
                                         parameters = boxChecked[1]
+                                        print("Tiene que entrar acá siempre, no?")
                                         #Verificar que no tenga más de dos adyacentes
                                     else:
                                         print("******Número de casilla incorrecta.\n")
