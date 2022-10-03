@@ -35,7 +35,7 @@ def createBoard(dim):
         numBoard =  random.randint(1, 10)
     #end if
     path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(numBoard) + ".txt"
-    path = "Niveles7X7/1.txt"
+    path = "Niveles5X5/1.txt"
     board = []
     with open(path, "r") as file:
         for lines in file:
@@ -247,67 +247,74 @@ def checkBox(board, color, coordenate):
     return ['F', False]
 #end def
 
-def checkE(element):
+def checkE(element, board):
     if len(pathR) > 0:
-        for r in range (len(pathR)):
-            if element == pathR[r]:
-                pathR.remove(element)
-                return True
-            #end if
-        #end for
+        if element in pathR:
+            for r in range (len(pathR)):
+                board[int(pathR[r][0])][int(pathR[r][1])] = '0'
+            #end for
+            pathR.clear()
+            return True
+        #end if
     #end if
     if len(pathB) > 0:
-        for b in range (len(pathB)):
-            if element == pathB[b]:
-                pathB.remove(element)
-                return True
-            #end if
-        #end for
+        if element in pathB:
+            for b in range (len(pathB)):
+                board[int(pathB[b][0])][int(pathB[b][1])] = '0'
+            #end for
+            pathB.clear()
+            return True
+        #end if
     #end if
     if len(pathY) > 0:
-        for y in range (len(pathY)):
-            if element == pathY[y]:
-                pathY.remove(element)
-                return True
-            #end if
-        #end for
+        if element in pathY:
+            for y in range (len(pathY)):
+                board[int(pathY[y][0])][int(pathY[y][1])] = '0'
+            #end for
+            pathY.clear()
+            return True
+        #end if
     #end if
     if len(pathG) > 0:    
-        for g in range (len(pathG)):
-            if element == pathG[g]:
-                pathG.remove(element)
-                return True
-            #end if
-        #end for
+        if element in pathG:
+            for g in range (len(pathG)):
+                board[int(pathG[g][0])][int(pathG[g][1])] = '0'
+            #end for
+            pathG.clear()
+            return True
+        #end if
     #end if
     if len(pathW) > 0:
-        for w in range (len(pathW)):
-            if element == pathW[w]:
-                pathW.remove(element)
-                return True
-            #end if
-        #end for
+        if element in pathW:
+            for w in range (len(pathW)):
+                board[int(pathW[w][0])][int(pathW[w][1])] = '0'
+            #end for
+            pathW.clear()
+            return True
+        #end if
     #end if
     if len(pathC) > 0:
-        for c in range (len(pathC)):
-            if element == pathC[c]:
-                pathC.remove(element)
-                return True
-            #end if
-        #end for
+        if element in pathC:
+            for c in range (len(pathC)):
+                board[int(pathC[c][0])][int(pathC[c][1])] = '0'
+            #end for
+            pathC.clear()
+            return True
+        #end if
     #end if
     if len(pathP) > 0:
-        for p in range (len(pathP)):
-            if element == pathP[p]:
-                pathP.remove(element)
-                return True
-            #end if
-        #end for
+        if element in pathP:
+            for p in range (len(pathP)):
+                board[int(pathP[p][0])][int(pathR[p][1])] = '0'
+            #end for
+            pathP.clear()
+            return True
+        #end if
     #end if
 #end def
 
-def addPath(color, coordenate):
-    checkE(coordenate)
+def addPath(color, coordenate, board):
+    checkE(coordenate, board)
     if color == 'R':
         pathR.append(coordenate)
     elif color == 'G':
@@ -346,7 +353,7 @@ def selectMove(board):
                             if len(movements[1])  == 2:
                                 if (int(movements[1][0]) >= 0) and (int(movements[1][0]) < len(board)) and (int(movements[1][1]) >= 0) and (int(movements[1][1]) < len(board)):
                                     boxChecked = checkBox(board, movements[0].upper(), movements[1])
-                                    addPath(movements[0].upper(), movements[1])
+                                    addPath(movements[0].upper(), movements[1], board)
                                     #if boxChecked[0] != 'F':
                                         #checkAdjacents(board, boxChecked[0])
                                     parameters = boxChecked[1]
