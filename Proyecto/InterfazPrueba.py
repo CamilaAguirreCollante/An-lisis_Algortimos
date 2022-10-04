@@ -1,5 +1,5 @@
 """
-    Autores: 
+    Autores:
         María Camila Aguirre Collante
         Jessica Tatiana Naizaque Guevara
 """
@@ -8,10 +8,10 @@ import random
 from colorama import *
 
 '''Declaración listas necesarias:
-        ° xInitial: lista de 'strings' que indican las coordenadas 
+        ° xInitial: lista de 'strings' que indican las coordenadas
                     de las posiciones iniciales de 'x' color en el tablero.
         ° pathX: lista de 'strings' que indican las coordenadas del
-                 camino correspondiente al color 'X'.               
+                 camino correspondiente al color 'X'.
 '''
 init(autoreset=True)
 rInitial = []
@@ -73,7 +73,7 @@ def createBoard(dim):
         numBoard =  random.randint(1, 10)
     #end if
     path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(numBoard) + ".txt"
-    #path = "Niveles5X5/1.txt"
+    path = "Niveles5X5/1.txt"
     board = []
     with open(path, "r") as file:
         for lines in file:
@@ -162,7 +162,7 @@ def checkE(element, board):
             return True
         #end if
     #end if
-    if len(pathG) > 0:    
+    if len(pathG) > 0:
         if element in pathG:
             for g in range (len(pathG)):
                 board[int(pathG[g][0])][int(pathG[g][1])] = '0'
@@ -201,13 +201,13 @@ def checkE(element, board):
 #end def
 ''' Obtiene todas las casillas adyacentes que se encuentran del mismo color a la casilla a verificar.
 @Entradas -> board(list): tablero actual de juego
-             color(string): letra del color correspondiente a la casilla 
+             color(string): letra del color correspondiente a la casilla
                             para la cual se quieren hallar los adyacentes.
-             i(int): fila de la casilla para la cual 
+             i(int): fila de la casilla para la cual
                      se quieren hallar los adyacentes.
-             j(int): columna de la casilla para la cual 
+             j(int): columna de la casilla para la cual
                      se quieren hallar los adyacentes.
-@Salida -> adjacents(list): lista de vectores de long. 2 correspondiente a 
+@Salida -> adjacents(list): lista de vectores de long. 2 correspondiente a
                             las coordenadas de las casillas adyacentes que
                             tienen el mismo color.
 '''
@@ -247,7 +247,7 @@ def verifyPath(color, board, coordenate):
     jC = int(coordenate[1])
     adjacentsC = getAdj(board, color, iC, jC)
     if len(adjacentsC) == 1:
-        adjC = str(adjacentsC[0][0])+str(adjacentsC[0][1]) 
+        adjC = str(adjacentsC[0][0])+str(adjacentsC[0][1])
         if color == 'R':
             if adjC == rInitial[0]:
                 initial1 = [int(rInitial[1][0]),int(rInitial[1][1])]
@@ -255,7 +255,7 @@ def verifyPath(color, board, coordenate):
                     i = int(pathR[r][0])
                     j = int(pathR[r][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial1 in adjacents: 
+                    if initial1 in adjacents:
                         return True
                     #end if
                 #end for
@@ -265,8 +265,8 @@ def verifyPath(color, board, coordenate):
                     i = int(pathR[r][0])
                     j = int(pathR[r][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial0 in adjacents: 
-                        return True       
+                    if initial0 in adjacents:
+                        return True
                     #end if
                 #end for
             #end if
@@ -278,7 +278,7 @@ def verifyPath(color, board, coordenate):
                     i = int(pathB[b][0])
                     j = int(pathB[b][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial1 in adjacents: 
+                    if initial1 in adjacents:
                         return True
                     #end if
                 #end for
@@ -288,8 +288,8 @@ def verifyPath(color, board, coordenate):
                     i = int(pathB[b][0])
                     j = int(pathB[b][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial0 in adjacents: 
-                        return True       
+                    if initial0 in adjacents:
+                        return True
                     #end if
                 #end for
             #end if
@@ -301,7 +301,7 @@ def verifyPath(color, board, coordenate):
                     i = int(pathY[y][0])
                     j = int(pathY[y][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial1 in adjacents: 
+                    if initial1 in adjacents:
                         return True
                     #end if
                 #end for
@@ -311,8 +311,8 @@ def verifyPath(color, board, coordenate):
                     i = int(pathY[y][0])
                     j = int(pathY[y][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial0 in adjacents: 
-                        return True       
+                    if initial0 in adjacents:
+                        return True
                     #end if
                 #end for
             #end if
@@ -324,7 +324,7 @@ def verifyPath(color, board, coordenate):
                     i = int(pathG[g][0])
                     j = int(pathG[g][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial1 in adjacents: 
+                    if initial1 in adjacents:
                         return True
                     #end if
                 #end for
@@ -334,8 +334,8 @@ def verifyPath(color, board, coordenate):
                     i = int(pathG[g][0])
                     j = int(pathG[g][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial0 in adjacents: 
-                        return True       
+                    if initial0 in adjacents:
+                        return True
                     #end if
                 #end for
             #end if
@@ -347,7 +347,7 @@ def verifyPath(color, board, coordenate):
                     i = int(pathW[w][0])
                     j = int(pathW[w][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial1 in adjacents: 
+                    if initial1 in adjacents:
                         return True
                     #end if
                 #end for
@@ -357,8 +357,8 @@ def verifyPath(color, board, coordenate):
                     i = int(pathW[w][0])
                     j = int(pathW[w][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial0 in adjacents: 
-                        return True       
+                    if initial0 in adjacents:
+                        return True
                     #end if
                 #end for
             #end if
@@ -370,7 +370,7 @@ def verifyPath(color, board, coordenate):
                     i = int(pathC[c][0])
                     j = int(pathC[c][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial1 in adjacents: 
+                    if initial1 in adjacents:
                         return True
                     #end if
                 #end for
@@ -380,8 +380,8 @@ def verifyPath(color, board, coordenate):
                     i = int(pathC[c][0])
                     j = int(pathC[c][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial0 in adjacents: 
-                        return True       
+                    if initial0 in adjacents:
+                        return True
                     #end if
                 #end for
             #end if
@@ -393,7 +393,7 @@ def verifyPath(color, board, coordenate):
                     i = int(pathP[p][0])
                     j = int(pathP[p][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial1 in adjacents: 
+                    if initial1 in adjacents:
                         return True
                     #end if
                 #end for
@@ -403,8 +403,8 @@ def verifyPath(color, board, coordenate):
                     i = int(pathP[p][0])
                     j = int(pathP[p][1])
                     adjacents = getAdj(board, color, i, j)
-                    if initial0 in adjacents: 
-                        return True       
+                    if initial0 in adjacents:
+                        return True
                     #end if
                 #end for
             #end if
@@ -528,10 +528,64 @@ def removeE(color, element):
         pathP.remove(element)
     #end if
 #end def
-''' Verifica casillas adyacentes 
+'''
+'''
+def removeNext(color, coordenate, board):
+    if color == 'R':
+        indice = False
+        while not indice:
+            board[int(pathR[-1][0])][int(pathR[-1][1])] = '0'
+            removeE(color, pathR[-1])
+            if pathR[-1] == coordenate:
+                indice = True
+    elif color == 'G':
+        indice = False
+        while not indice:
+            board[int(pathG[-1][0])][int(pathG[-1][1])] = '0'
+            removeE(color, pathG[-1])
+            if pathG[-1] == coordenate:
+                indice = True
+    elif color == 'Y':
+        indice = False
+        while not indice:
+            board[int(pathY[-1][0])][int(pathY[-1][1])] = '0'
+            removeE(color, pathY[-1])
+            if pathY[-1] == coordenate:
+                indice = True
+    elif color == 'W':
+        indice = False
+        while not indice:
+            board[int(pathW[-1][0])][int(pathW[-1][1])] = '0'
+            removeE(color, pathW[-1])
+            if pathW[-1] == coordenate:
+                indice = True
+    elif color == 'B':
+        indice = False
+        while not indice:
+            board[int(pathB[-1][0])][int(pathB[-1][1])] = '0'
+            removeE(color, pathB[-1])
+            if pathB[-1] == coordenate:
+                indice = True
+    elif color == 'C':
+        indice = False
+        while not indice:
+            board[int(pathC[-1][0])][int(pathC[-1][1])] = '0'
+            removeE(color, pathC[-1])
+            if pathC[-1] == coordenate:
+                indice = True
+    elif color == 'P':
+        indice = False
+        while not indice:
+            board[int(pathP[-1][0])][int(pathP[-1][1])] = '0'
+            removeE(color, pathP[-1])
+            if pathP[-1] == coordenate:
+                indice = True
+    #end if
+
+''' Verifica casillas adyacentes
 @Entradas -> board(list): tablero de juego actual.
              coorBox(string): coordenada adyacente a la casilla ingresada.
-@Salida -> eliminar casillas adyacentes 
+@Salida -> eliminar casillas adyacentes
 '''
 def checkAdjacents(board, coordBox):
     i = int(coordBox.split(",")[0])
@@ -557,7 +611,7 @@ def checkAdjacents(board, coordBox):
             if x > 0:
                 if board[x-1][y] != color+"!" and i != x-1 and j != y:
                     board[x-1][y] = "0"
-                    x = x - 1 
+                    x = x - 1
                 elif board[x-1][y] == color+"!":
                     noAdj = True
                 #end if
@@ -565,7 +619,7 @@ def checkAdjacents(board, coordBox):
             if y > 0:
                 if board[x][y-1] != color+"!" and i != x and j != y-1:
                     board[x][y-1] = "0"
-                    y = y - 1  
+                    y = y - 1
                 elif board[x][y-1] == color+"!":
                     noAdj = True
                 #end if
@@ -575,7 +629,7 @@ def checkAdjacents(board, coordBox):
                     board[x+1][y] = "0"
                     x = x + 1
                 elif board[x+1][y] == color+"!":
-                    noAdj = True  
+                    noAdj = True
                 #end if
             #end if
             if y < n-1:
@@ -604,6 +658,8 @@ def checkBox(board, color, coordenate):
     n = len(board)
     if board[i][j] == color:
         print("******La casilla ya tiene el color seleccionado.\n")
+        removeNext(color, coordenate, board)
+        return ['E', False]
     elif board[i][j] == "0" or "!" not in board[i][j]:
         if i > 0:
             if board[i-1][j] == color or board[i-1][j] == color+"!": #Si su casilla de arriba es del mismo color
@@ -634,23 +690,23 @@ def checkBox(board, color, coordenate):
 #end def
 ''' Inicar si el tablero ya fue llenado en su totalidad
 @Entradas -> board(list): tablero actual de juego.
-@Salida -> retorna 'bool' que indica si ya está completamente lleno. 
+@Salida -> retorna 'bool' que indica si ya está completamente lleno.
 '''
 def checkFinished(board):
     for i in range(len(board)):
         for j in range(len(board)):
             if board[i][j] == "0":
-                return False    
+                return False
             #end if
         #end for
     #end for
     return True
 #end def
 '''
-@Entradas -> initial(): 
+@Entradas -> initial():
              path:
              dim:
-@Salida -> 
+@Salida ->
 '''
 def checkPath(initial, path, dim):
     win1 = False
@@ -693,7 +749,7 @@ def checkPath(initial, path, dim):
 #end def
 '''
 @Entradas ->
-@Salida -> 
+@Salida ->
 '''
 def checkWinner(board):
     dim = len(board)
@@ -731,7 +787,7 @@ def checkWinner(board):
 #end def
 '''
 @Entradas ->
-@Salida -> 
+@Salida ->
 '''
 def resetGame():
     rInitial.clear()
@@ -750,7 +806,7 @@ def resetGame():
     pathP.clear()
 '''
 @Entradas ->
-@Salida -> 
+@Salida ->
 '''
 def selectMove(board):
     finished = False #Verificar que el juego no haya finalizado (cuando todas las casillas tienen color)
@@ -768,14 +824,16 @@ def selectMove(board):
                 if len(movements) == 2:
                     if movements[0].isalpha():
                         if movements[1].isnumeric():
-                            if movements[0].upper() == "R" or movements[0].upper() == "G" or movements[0].upper() == "B" or movements[0].upper() == "Y" or movements[0].upper() == "W" or movements[0].upper() == "C" or movements[0].upper() == "P": 
+                            if movements[0].upper() == "R" or movements[0].upper() == "G" or movements[0].upper() == "B" or movements[0].upper() == "Y" or movements[0].upper() == "W" or movements[0].upper() == "C" or movements[0].upper() == "P":
                                 if len(movements[1])  == 2:
                                     if (int(movements[1][0]) >= 0) and (int(movements[1][0]) < len(board)) and (int(movements[1][1]) >= 0) and (int(movements[1][1]) < len(board)):
                                         boxChecked = checkBox(board, movements[0].upper(), movements[1])
                                         #if boxChecked[0] != 'F':
-                                        #    checkAdjacents(board, boxChecked[0]) 
-                                        if boxChecked[0] != 'F':
+                                        #    checkAdjacents(board, boxChecked[0])
+                                        if boxChecked[0] != 'F' and boxChecked[0] != 'E':
                                             addPath(movements[0].upper(), movements[1], board)
+                                        if boxChecked[0] == 'E':
+                                            showBoard(board)
                                         parameters = boxChecked[1]
                                         #Verificar que no tenga más de dos adyacentes
                                     else:
