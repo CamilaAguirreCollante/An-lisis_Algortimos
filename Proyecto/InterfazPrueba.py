@@ -240,7 +240,7 @@ def getAdj(board, color, i, j):
 @Entradas -> color(string): letra del color correspondiente a la casilla actual.
              board(list): tablero actual de juego.
              coordenate(string): coordenada correspondiente a la casilla actual.
-@Salida -> retorna 'bool' True cuando ya existe un camino desde algun xInitial.
+@Salida -> retorna 'bool' True cuando ya existe un camino desde algún xInitial.
 '''
 def verifyPath(color, board, coordenate):
     iC = int(coordenate[0])
