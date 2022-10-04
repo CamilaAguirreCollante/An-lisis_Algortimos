@@ -614,7 +614,6 @@ def removeNext(color, coordenate, board):
 def checkAdjacents(board, coordBox):
     i = int(coordBox.split(",")[0])
     j = int(coordBox.split(",")[1])
-    print("Coor: ", coordBox)
     color = (board[i][j])
     if color == 'R':
         if len(pathR)>0:
@@ -623,18 +622,22 @@ def checkAdjacents(board, coordBox):
             #end if
         #end if
     elif color == 'R!':
-        print("SIUUUU")
         if len(pathR)>0:
             for r in pathR:
                 board[int(r[0])][int(r[1])] = '0'
             pathR.clear()
         #end if
-
     elif color == 'B':
         if len(pathB)>0:
             if pathB[-1] != str(i)+str(j):
                 removeNext(color, str(i)+str(j), board)
             #end if
+        #end if
+    elif color == 'B!':
+        if len(pathB)>0:
+            for b in pathB:
+                board[int(b[0])][int(b[1])] = '0'
+            pathB.clear()
         #end if
     elif color == 'Y':
         if len(pathY)>0:
@@ -642,11 +645,23 @@ def checkAdjacents(board, coordBox):
                 removeNext(color, str(i)+str(j), board)
             #end if
         #end if
+    elif color == 'Y!':
+        if len(pathY)>0:
+            for y in pathY:
+                board[int(y[0])][int(y[1])] = '0'
+            pathY.clear()
+        #end if
     elif color == 'W':
         if len(pathW)>0:
             if pathW[-1] != str(i)+str(j):
                 removeNext(color, str(i)+str(j), board)
             #end if
+        #end if
+    elif color == 'W!':
+        if len(pathW)>0:
+            for w in pathW:
+                board[int(w[0])][int(w[1])] = '0'
+            pathW.clear()
         #end if
     elif color == 'G':
         if len(pathG)>0:
@@ -654,17 +669,35 @@ def checkAdjacents(board, coordBox):
                 removeNext(color, str(i)+str(j), board)
             #end if
         #end if
+    elif color == 'G!':
+        if len(pathG)>0:
+            for g in pathG:
+                board[int(g[0])][int(g[1])] = '0'
+            pathG.clear()
+        #end if
     elif color == 'C':
         if len(pathC)>0:
             if pathC[-1] != str(i)+str(j):
                 removeNext(color, str(i)+str(j), board)
             #end if
         #end if
+    elif color == 'C!':
+        if len(pathC)>0:
+            for c in pathC:
+                board[int(c[0])][int(c[1])] = '0'
+            pathC.clear()
+        #end if
     elif color == 'P':
         if len(pathP)>0:
             if pathP[-1] != str(i)+str(j):
                 removeNext(color, str(i)+str(j), board)
             #end if
+        #end if
+    elif color == 'P!':
+        if len(pathP)>0:
+            for p in pathP:
+                board[int(p[0])][int(p[1])] = '0'
+            pathP.clear()
         #end if
     #end if        
 #end def
@@ -941,8 +974,7 @@ def selectMove(board):
                             if movements[0].upper() == "R" or movements[0].upper() == "G" or movements[0].upper() == "B" or movements[0].upper() == "Y" or movements[0].upper() == "W" or movements[0].upper() == "C" or movements[0].upper() == "P":
                                 if len(movements[1])  == 2:
                                     if (int(movements[1][0]) >= 0) and (int(movements[1][0]) < len(board)) and (int(movements[1][1]) >= 0) and (int(movements[1][1]) < len(board)):
-                                        boxChecked = checkBox(board, movements[0].upper(), movements[1]) 
-                                        print("boxChecked: ", boxChecked)                                          
+                                        boxChecked = checkBox(board, movements[0].upper(), movements[1])                                        
                                         if boxChecked[0] != 'F' and boxChecked[0] != 'E':
                                             checkAdjacents(board, boxChecked[0])
                                             addPath(movements[0].upper(), movements[1], board)
