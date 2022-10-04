@@ -814,7 +814,7 @@ def checkBox(board, color, coordenate):
     #end if
     return ['F', False]
 #end def
-''' Inicar si el tablero ya fue llenado en su totalidad
+''' Inicar si el tablero ya fue llenado en su totalidad.
 @Entradas -> board(list): tablero actual de juego.
 @Salida -> retorna 'bool' que indica si ya está completamente lleno.
 '''
@@ -873,9 +873,9 @@ def checkPath(initial, path, dim):
         return True
     #end if
 #end def
-'''
-@Entradas ->
-@Salida ->
+''' Verificar si el tablero está correctamente lleno
+@Entradas -> board(list): tablero actual de juego.
+@Salida -> retorna un dato 'bool' que indica si ya el jugador completó el nivel.
 '''
 def checkWinner(board):
     dim = len(board)
@@ -932,10 +932,7 @@ def checkWinner(board):
         return True
     return False
 #end def
-'''
-@Entradas ->
-@Salida ->
-'''
+''' Eliminar todos los datos almacenados en xInitial y en pathX.'''
 def resetGame():
     rInitial.clear()
     bInitial.clear()
@@ -951,9 +948,8 @@ def resetGame():
     pathW.clear()
     pathC.clear()
     pathP.clear()
-'''
-@Entradas ->
-@Salida ->
+''' Controlar los movimientos del juego.
+@Entradas -> board(list): tablero actual de juego.
 '''
 def selectMove(board):
     finished = False #Verificar que el juego no haya finalizado (cuando todas las casillas tienen color)
@@ -1009,7 +1005,6 @@ def selectMove(board):
             board[int(movements[1][0])][int(movements[1][1])] = movements[0].upper()
             showBoard(board)
             finished = checkFinished(board)
-            #print(finished)
             if finished:
                 win = checkWinner(board)
                 if win == False:
