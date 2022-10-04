@@ -7,6 +7,12 @@ import copy
 import random
 from colorama import *
 
+'''Declaración listas necesarias:
+        ° xInitial: lista de 'strings' que indican las coordenadas 
+                    de las posiciones iniciales de 'x' color en el tablero.
+        ° pathX: lista de 'strings' que indican las coordenadas del
+                 camino correspondiente al color 'X'.               
+'''
 init(autoreset=True)
 rInitial = []
 bInitial = []
@@ -30,7 +36,10 @@ green = Back.GREEN
 cyan = Back.CYAN
 purple = Back.MAGENTA
 white = Back.WHITE
-
+''' Llena cada lista con las posiciones iniciales de cada color.
+@Entradas -> board: tablero inicial del juego.
+@Salidas -> cada xInitial lleno.
+'''
 def defInitials(board):
     dim = len(board)
     for i in range(dim):
@@ -53,9 +62,9 @@ def defInitials(board):
         #end for
     #end for
 #end def
-'''
-@Entradas -> dim=dimensiones del tablero de juego
-@Salida -> creación del tablero de juego
+''' Creación del tablero de juego a partir de la elección aleatoria del mismo.
+@Entradas -> dim(int): dimensiones del tablero de juego(.
+@Salida -> board(list): creación del tablero de juego.
 '''
 def createBoard(dim):
     if dim == 9:
@@ -73,9 +82,8 @@ def createBoard(dim):
     defInitials(board)
     return board
 #end-def
-
-'''
-@Entradas -> board: tablero de juego
+''' Muestra por consola el tablero de juego actual.
+@Entradas -> board(list): tablero de juego
 @Salida -> mostrar el tablero de juego
 '''
 def showBoard(board):
@@ -121,7 +129,11 @@ def showBoard(board):
         print("-"*(7 * len(boardTemp)+1))
     #end for
 #end def
-
+''' Eliminar camino correspondiente a la casilla ingresada si esta se encuentra 'llena'.
+@Entradas -> element(string): coordenada correspondiente a la casilla actual.
+             board(list): tablero de juego.
+@Salida -> retorna 'bool' True cuando se elimina un camino.
+'''
 def checkE(element, board):
     if len(pathR) > 0:
         if element in pathR:
@@ -187,7 +199,18 @@ def checkE(element, board):
         #end if
     #end if
 #end def
-
+''' Obtiene todas las casillas adyacentes que se encuentran del mismo color a la casilla a verificar.
+@Entradas -> board(list): tablero actual de juego
+             color(string): letra del color correspondiente a la casilla 
+                            para la cual se quieren hallar los adyacentes.
+             i(int): fila de la casilla para la cual 
+                     se quieren hallar los adyacentes.
+             j(int): columna de la casilla para la cual 
+                     se quieren hallar los adyacentes.
+@Salida -> adjacents(list): lista de vectores de long. 2 correspondiente a 
+                            las coordenadas de las casillas adyacentes que
+                            tienen el mismo color.
+'''
 def getAdj(board, color, i, j):
     n = len(board)
     adjacents = []
@@ -213,7 +236,12 @@ def getAdj(board, color, i, j):
     #end if
     return adjacents
 #end def
-
+''' Verifica si existe otro camino del mismo color de la casilla ingresada.
+@Entradas -> color(string): letra del color correspondiente a la casilla actual.
+             board(list): tablero actual de juego.
+             coordenate(string): coordenada correspondiente a la casilla actual.
+@Salida -> retorna 'bool' True cuando ya existe un camino desde algun xInitial.
+'''
 def verifyPath(color, board, coordenate):
     iC = int(coordenate[0])
     jC = int(coordenate[1])
@@ -384,7 +412,12 @@ def verifyPath(color, board, coordenate):
     #end if
     return False
 #end def
-
+''' Agrega casilla ingresada al camino correspondiente (haciendo las verificaciones necesarias).
+@Entradas -> color(string): letra del color correspondiente a la casilla actual.
+             board(list): tablero actual de juego.
+             coordenate(string): coordenada correspondiente a la casilla actual.
+@Salida -> actualiza el pathX de la casilla ingresada.
+'''
 def addPath(color, coordenate, board):
     checkE(coordenate, board)
     if color == 'R':
@@ -473,7 +506,11 @@ def addPath(color, coordenate, board):
             pathP.append(coordenate)
     #end if
 #end def
-
+''' Elimina coordenada del pathX.
+@Entradas -> color(string): letra del color correspondiente a la casilla actual.
+             element(string): coordenada correspondiente a la casilla actual.
+@Salida -> actualiza el pathX (elimina el elemento que se desea remover de la lista).
+'''
 def removeE(color, element):
     if color == 'R' and element not in rInitial:
         pathR.remove(element)
@@ -491,38 +528,18 @@ def removeE(color, element):
         pathP.remove(element)
     #end if
 #end def
-
+''' Verifica casillas adyacentes 
+@Entradas -> board(list): tablero de juego actual.
+             coorBox(string): coordenada adyacente a la casilla ingresada.
+@Salida -> eliminar casillas adyacentes 
+'''
 def checkAdjacents(board, coordBox):
     i = int(coordBox.split(",")[0])
     j = int(coordBox.split(",")[1])
     n = len(board)
     color = (board[i][j])[0]
-    countAdjacents = 0
-    adjacents = []
-    if i > 0:
-        if board[i-1][j] == color or board[i-1][j] == color+"!": #Si su casilla de arriba es del mismo color
-            countAdjacents += 1
-            adjacents.append([i-1, j])
-        #end if
-    #end if
-    if j > 0:
-        if board[i][j-1] == color or board[i][j-1] == color+"!": #Si su casilla izquierda es del mismo color
-            countAdjacents += 1
-            adjacents.append([i, j-1])
-        #end if
-    #end if
-    if i < n-1:
-        if board[i+1][j] == color or board[i+1][j] == color+"!": #Si su casilla de abajo es del mismo color
-            countAdjacents += 1
-            adjacents.append([i+1, j])
-        #end if
-    #end if
-    if j < n-1:
-        if board[i][j+1] == color or board[i][j+1] == color+"!": #Si su casilla derecha es del mismo color
-            countAdjacents += 1
-            adjacents.append([i, j+1])
-        #end if
-    #end if
+    adjacents = getAdj(board, color, i, j)
+    countAdjacents = len(adjacents)
     print(i, " ", j, ": ", adjacents)
     if board[i][j] == color+"!" and countAdjacents > 0:
         board[adjacents[0][0]][adjacents[0][1]] = '0'
@@ -543,29 +560,43 @@ def checkAdjacents(board, coordBox):
                     x = x - 1 
                 elif board[x-1][y] == color+"!":
                     noAdj = True
+                #end if
+            #end if
             if y > 0:
                 if board[x][y-1] != color+"!" and i != x and j != y-1:
                     board[x][y-1] = "0"
                     y = y - 1  
                 elif board[x][y-1] == color+"!":
                     noAdj = True
+                #end if
+            #end if
             if x < n-1:
                 if board[x+1][y] != color+"!" and i != x+1 and j != y:
                     board[x+1][y] = "0"
                     x = x + 1
                 elif board[x+1][y] == color+"!":
                     noAdj = True  
+                #end if
+            #end if
             if y < n-1:
                 if board[x][y+1] != color+"!" and i != x and j != y+1:
                     board[x][y+1] = "0"
                     y = y + 1
                 elif board[x][y+1] == color+"!":
                     noAdj = True
+                #end if
+            #end if
+        #end while
+    #end if
 #end def
-
-'''
-@Entradas ->
-@Salida -> 
+''' Verificar si la casilla ingresada se puede agregar y retornar la casilla que permite llegar a la misma.
+@Entradas -> board(list): tablero actual de juego.
+             color(string): letra del color correspondiente a la casilla actual.
+             coordenate(string): coordenada correspondiente a la casilla actual.
+@Salida -> retorna una lista que contiene:
+            lista[0](string): coordenada que permite llegar a la casilla actual.
+            lista[1](bool): valida que exista una casilla adyacente que permita
+                            llegar a la casilla actual.
 '''
 def checkBox(board, color, coordenate):
     i = int(coordenate[0])
@@ -601,10 +632,9 @@ def checkBox(board, color, coordenate):
     #end if
     return ['F', False]
 #end def
-
-'''
-@Entradas ->
-@Salida -> 
+''' Inicar si el tablero ya fue llenado en su totalidad
+@Entradas -> board(list): tablero actual de juego.
+@Salida -> retorna 'bool' que indica si ya está completamente lleno. 
 '''
 def checkFinished(board):
     for i in range(len(board)):
@@ -616,7 +646,12 @@ def checkFinished(board):
     #end for
     return True
 #end def
-
+'''
+@Entradas -> initial(): 
+             path:
+             dim:
+@Salida -> 
+'''
 def checkPath(initial, path, dim):
     win1 = False
     win2 = False
@@ -656,7 +691,6 @@ def checkPath(initial, path, dim):
         return True
     #end if
 #end def
-
 '''
 @Entradas ->
 @Salida -> 
@@ -695,7 +729,10 @@ def checkWinner(board):
         return True
     return False
 #end def
-
+'''
+@Entradas ->
+@Salida -> 
+'''
 def resetGame():
     rInitial.clear()
     bInitial.clear()
@@ -711,7 +748,6 @@ def resetGame():
     pathW.clear()
     pathC.clear()
     pathP.clear()
-
 '''
 @Entradas ->
 @Salida -> 
