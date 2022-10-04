@@ -696,6 +696,22 @@ def checkWinner(board):
     return False
 #end def
 
+def resetGame():
+    rInitial.clear()
+    bInitial.clear()
+    yInitial.clear()
+    gInitial.clear()
+    wInitial.clear()
+    cInitial.clear()
+    pInitial.clear()
+    pathR.clear()
+    pathB.clear()
+    pathG.clear()
+    pathY.clear()
+    pathW.clear()
+    pathC.clear()
+    pathP.clear()
+
 '''
 @Entradas ->
 @Salida -> 
@@ -747,6 +763,7 @@ def selectMove(board):
             else:
                 out = True
                 parameters = True
+                resetGame()
             #end if
         #end while
         if not out:
@@ -762,13 +779,7 @@ def selectMove(board):
                     print("\t\t\t\nPor favor, siga intentando :D")
                 else:
                     finished = True
-                    pathR.clear()
-                    pathB.clear()
-                    pathG.clear()
-                    pathY.clear()
-                    pathW.clear()
-                    pathC.clear()
-                    pathP.clear()
+                    resetGame()
                     print("\t\tHa superado el nivel con éxito! ")
                 #end if
             #end if
