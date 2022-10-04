@@ -432,6 +432,7 @@ def addPath(color, coordenate, board):
                 pathR.append(coordenate)
         else:
             pathR.append(coordenate)
+        #end if
     elif color == 'B':
         if len(pathB) > 0:
             if verifyPath(color, board, coordenate):
@@ -444,6 +445,7 @@ def addPath(color, coordenate, board):
                 pathB.append(coordenate)
         else:
             pathB.append(coordenate)
+        #end if
     elif color == 'Y':
         if len(pathY) > 0:
             if verifyPath(color, board, coordenate):
@@ -456,6 +458,7 @@ def addPath(color, coordenate, board):
                 pathY.append(coordenate)
         else:
             pathY.append(coordenate)
+        #end if
     elif color == 'G':
         if len(pathG) > 0:
             if verifyPath(color, board, coordenate):
@@ -468,6 +471,7 @@ def addPath(color, coordenate, board):
                 pathG.append(coordenate)
         else:
             pathG.append(coordenate)
+        #end if
     elif color == 'W':
         if len(pathW) > 0:
             if verifyPath(color, board, coordenate):
@@ -480,6 +484,7 @@ def addPath(color, coordenate, board):
                 pathW.append(coordenate)
         else:
             pathW.append(coordenate)
+        #end if
     elif color == 'C':
         if len(pathC) > 0:
             if verifyPath(color, board, coordenate):
@@ -492,6 +497,7 @@ def addPath(color, coordenate, board):
                 pathC.append(coordenate)
         else:
             pathC.append(coordenate)
+        #end if
     elif color == 'P':
         if len(pathP) > 0:
             if verifyPath(color, board, coordenate):
@@ -528,7 +534,11 @@ def removeE(color, element):
         pathP.remove(element)
     #end if
 #end def
-'''
+''' Respecto a una casilla, elimina todo el camino existente después de la misma
+@Entradas -> color(string): letra del color correspondiente a la casilla actual.
+             coordenate(string): coordenada correspondiente a la casilla actual.
+             board(list): tablero actual de juego.  
+@Salida -> actualiza el pathX.
 '''
 def removeNext(color, coordenate, board):
     if color == 'R':
@@ -538,6 +548,8 @@ def removeNext(color, coordenate, board):
             removeE(color, pathR[-1])
             if pathR[-1] == coordenate:
                 indice = True
+            #end if
+        #end while
     elif color == 'G':
         indice = False
         while not indice:
@@ -545,6 +557,8 @@ def removeNext(color, coordenate, board):
             removeE(color, pathG[-1])
             if pathG[-1] == coordenate:
                 indice = True
+            #end if
+        #end while
     elif color == 'Y':
         indice = False
         while not indice:
@@ -552,6 +566,8 @@ def removeNext(color, coordenate, board):
             removeE(color, pathY[-1])
             if pathY[-1] == coordenate:
                 indice = True
+            #end if
+        #end while
     elif color == 'W':
         indice = False
         while not indice:
@@ -559,6 +575,8 @@ def removeNext(color, coordenate, board):
             removeE(color, pathW[-1])
             if pathW[-1] == coordenate:
                 indice = True
+            #end if
+        #end while
     elif color == 'B':
         indice = False
         while not indice:
@@ -566,6 +584,8 @@ def removeNext(color, coordenate, board):
             removeE(color, pathB[-1])
             if pathB[-1] == coordenate:
                 indice = True
+            #end if
+        #end while
     elif color == 'C':
         indice = False
         while not indice:
@@ -573,6 +593,8 @@ def removeNext(color, coordenate, board):
             removeE(color, pathC[-1])
             if pathC[-1] == coordenate:
                 indice = True
+            #end if
+        #end while
     elif color == 'P':
         indice = False
         while not indice:
@@ -580,6 +602,8 @@ def removeNext(color, coordenate, board):
             removeE(color, pathP[-1])
             if pathP[-1] == coordenate:
                 indice = True
+            #end if
+        #end while
     #end if
 #end def
 ''' Verifica casillas adyacentes
@@ -590,38 +614,70 @@ def removeNext(color, coordenate, board):
 def checkAdjacents(board, coordBox):
     i = int(coordBox.split(",")[0])
     j = int(coordBox.split(",")[1])
+    print("Coor: ", coordBox)
     color = (board[i][j])
     if color == 'R':
         if len(pathR)>0:
             if pathR[-1] != str(i)+str(j):
                 removeNext(color, str(i)+str(j), board)
+            #end if
+        #end if
+    elif color == 'R!':
+        print("SIUUUU")
+        if len(pathR)>0:
+            for r in pathR:
+                board[int(r[0])][int(r[1])] = '0'
+            pathR.clear()
+        #end if
+
     elif color == 'B':
         if len(pathB)>0:
             if pathB[-1] != str(i)+str(j):
                 removeNext(color, str(i)+str(j), board)
+            #end if
+        #end if
     elif color == 'Y':
         if len(pathY)>0:
             if pathY[-1] != str(i)+str(j):
                 removeNext(color, str(i)+str(j), board)
+            #end if
+        #end if
     elif color == 'W':
         if len(pathW)>0:
             if pathW[-1] != str(i)+str(j):
                 removeNext(color, str(i)+str(j), board)
+            #end if
+        #end if
     elif color == 'G':
         if len(pathG)>0:
             if pathG[-1] != str(i)+str(j):
                 removeNext(color, str(i)+str(j), board)
+            #end if
+        #end if
     elif color == 'C':
         if len(pathC)>0:
             if pathC[-1] != str(i)+str(j):
                 removeNext(color, str(i)+str(j), board)
+            #end if
+        #end if
     elif color == 'P':
         if len(pathP)>0:
             if pathP[-1] != str(i)+str(j):
                 removeNext(color, str(i)+str(j), board)
-        
+            #end if
+        #end if
+    #end if        
 #end def
-
+''' Obtener la posición en el pathX de una casilla.
+@Entradas -> color(string): letra del color correspondiente a la casilla actual.
+             i(int): fila de la casilla para la cual
+                     se quiere encontrar la posición.
+             j(int): columna de la casilla para la cual
+                     se quiere encontrar la posición.
+@Salidas -> retorna un entero:
+                -1:  si la casilla no se encuentra en el path.
+                int: número correspondiente al índice en el que se encuentra la casilla.
+'''
 def getIndex(color, i, j):
     if color == 'R':
         return pathR.index(str(i) + str(j)) if (str(i) + str(j)) in pathR else -1
@@ -639,6 +695,12 @@ def getIndex(color, i, j):
         return pathP.index(str(i) + str(j)) if (str(i) + str(j)) in pathP else -1
     #end if
 #end def
+''' Obtener una coordenada a partir de una posición específica.
+@Entradas -> color(string): letra del color correspondiente al path en el que se desea buscar.
+             pos(int): posición (ínidice) de la cual 
+                       se quiere obtener la coordenada.
+@Salidas -> retorna un string con la coordenada encontrda.
+'''
 def getPosPath(color, pos):
     if color == 'R':
         return pathR[pos]
@@ -656,7 +718,6 @@ def getPosPath(color, pos):
         return pathP[pos]
     #end if
 #end def
-
 ''' Verificar si la casilla ingresada se puede agregar y retornar la casilla que permite llegar a la misma.
 @Entradas -> board(list): tablero actual de juego.
              color(string): letra del color correspondiente a la casilla actual.
@@ -673,16 +734,16 @@ def checkBox(board, color, coordenate):
     extremo = ""
     up, down, left, right = -1, -1, -1, -1
     if board[i][j] == color:
-        print("******La casilla ya tiene el color seleccionado.\n")
+        print(Fore.RED + "******La casilla ya tiene el color seleccionado.\n")
         removeNext(color, coordenate, board)
         return ['E', False]
     elif board[i][j] == "0" or "!" not in board[i][j]:
         if i > 0:
             if board[i-1][j] == color: #Si su casilla de arriba es del mismo color
                 up = getIndex(color, i-1, j)
-            #end if
             elif board[i-1][j] == color+"!":
                 extremo = str(i-1) + "," + str(j) 
+            #end if    
         #end if
         if j > 0:
             if board[i][j-1] == color : #Si su casilla izquierda es del mismo color
@@ -709,12 +770,14 @@ def checkBox(board, color, coordenate):
             posLastAdj = max([up, down, left, right]) #Posición del último adyacente en path
             lastAdj = getPosPath(color, posLastAdj)
             return [lastAdj[0] + "," + lastAdj[1], True]
+        #end if
         if extremo != "":
             return [extremo, True]
-        print("******No hay casillas adyacentes del color seleccionado.\n")
+        #end if
+        print(Fore.RED + "******No hay casillas adyacentes del color seleccionado.\n")
     #end if
     if "!" in board[i][j]:
-        print("******No puede cambiar una casilla inicial.\n")
+        print(Fore.RED + "******No puede cambiar una casilla inicial.\n")
     #end if
     return ['F', False]
 #end def
@@ -732,10 +795,10 @@ def checkFinished(board):
     #end for
     return True
 #end def
-'''
-@Entradas -> initial():
-             path:
-             dim:
+''' Verificar si cada valor inicial (extremo) de un color tiene una casilla adyacente perteneciente al pathX.
+@Entradas -> initial(list): lista de strings correspondientes a los extremos de un color. 
+             path(list): lista de strings correspondientes al camino d eun color.
+             dim: 
 @Salida ->
 '''
 def checkPath(initial, path, dim):
@@ -783,34 +846,55 @@ def checkPath(initial, path, dim):
 '''
 def checkWinner(board):
     dim = len(board)
-    if (len(pathR)) > 0:
+    if (len(pathR)) > 0 and len(rInitial) > 0:
         winR = checkPath(rInitial, pathR, dim)
     else:
-        winR = True
-    if (len(pathB)) > 0:
+        if len(rInitial) > 0:
+            winR = False
+        else:
+            winR = True
+    if (len(pathB)) > 0 and len(bInitial) > 0:
         winB = checkPath(bInitial, pathB, dim)
     else:
-        winB = True
-    if (len(pathY)) > 0:
+        if len(bInitial) > 0:
+            winB = False
+        else:
+            winB = True
+    if (len(pathY)) > 0 and len(yInitial) > 0:
         winY = checkPath(yInitial, pathY, dim)
     else:
-        winY = True
-    if (len(pathG)) > 0:
+        if len(yInitial) > 0:
+            winY = False
+        else:
+            winY = True
+    if (len(pathG)) > 0 and len(gInitial) > 0:
         winG = checkPath(gInitial, pathG, dim)
     else:
-        winG = True
-    if (len(pathW)) > 0:
+        if len(gInitial) > 0:
+            winG = False
+        else:
+            winG = True
+    if (len(pathW)) > 0 and len(wInitial) > 0:
         winW = checkPath(wInitial, pathW, dim)
     else:
-        winW = True
-    if (len(pathC)) > 0:
+        if len(wInitial) > 0:
+            winW = False
+        else:
+            winW = True
+    if (len(pathC)) > 0 and len(cInitial) > 0:
         winC = checkPath(cInitial, pathC, dim)
     else:
-        winC = True
-    if (len(pathP)) > 0:
+        if len(cInitial) > 0:
+            winC = False
+        else:
+            winC = True
+    if (len(pathP)) > 0 and len(pInitial) > 0:
         winP = checkPath(pInitial, pathP, dim)
     else:
-        winP = True
+        if len(pInitial) > 0:
+            winP = False
+        else:
+            winP = True
     if winR and winB and winY and winG and winW and winC and winP:
         return True
     return False
@@ -857,7 +941,8 @@ def selectMove(board):
                             if movements[0].upper() == "R" or movements[0].upper() == "G" or movements[0].upper() == "B" or movements[0].upper() == "Y" or movements[0].upper() == "W" or movements[0].upper() == "C" or movements[0].upper() == "P":
                                 if len(movements[1])  == 2:
                                     if (int(movements[1][0]) >= 0) and (int(movements[1][0]) < len(board)) and (int(movements[1][1]) >= 0) and (int(movements[1][1]) < len(board)):
-                                        boxChecked = checkBox(board, movements[0].upper(), movements[1])                                           
+                                        boxChecked = checkBox(board, movements[0].upper(), movements[1]) 
+                                        print("boxChecked: ", boxChecked)                                          
                                         if boxChecked[0] != 'F' and boxChecked[0] != 'E':
                                             checkAdjacents(board, boxChecked[0])
                                             addPath(movements[0].upper(), movements[1], board)
@@ -865,22 +950,22 @@ def selectMove(board):
                                             showBoard(board)
                                         parameters = boxChecked[1]
                                     else:
-                                        print("******Número de casilla incorrecta.\n")
+                                        print(Fore.RED + "******Número de casilla incorrecta.\n")
                                     #end if
                                 else:
-                                    print("******Número de casilla incorrecta.\n")
+                                    print(Fore.RED + "******Número de casilla incorrecta.\n")
                                 #end if
                             else:
-                                print("******Inicial de color inválida.\n")
+                                print(Fore.RED + "******Inicial de color inválida.\n")
                             #end if
                         else:
-                            print ("******Parámetro casilla incorrecto.\n")
+                            print (Fore.RED + "******Parámetro casilla incorrecto.\n")
                         #end if
                     else:
-                        print ("******Parámetro color incorrecto.\n")
+                        print (Fore.RED + "******Parámetro color incorrecto.\n")
                     #end if
                 else:
-                    print("******Cantidad de parámetros enviados incorrecta.\n")
+                    print(Fore.RED + "******Cantidad de parámetros enviados incorrecta.\n")
                 #end if
             else:
                 out = True
@@ -897,8 +982,8 @@ def selectMove(board):
                 win = checkWinner(board)
                 if win == False:
                     finished = False
-                    print("\t\tNo ha completado de manera correcta el nivel :(")
-                    print("\t\t\t\nPor favor, siga intentando :D")
+                    print(Fore.RED + "\t\tNo ha completado de manera correcta el nivel :(")
+                    print(Fore.GREEN + "\t\t\t\nPor favor, siga intentando :D")
                 else:
                     finished = True
                     resetGame()
