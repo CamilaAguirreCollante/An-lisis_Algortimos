@@ -830,9 +830,9 @@ def checkFinished(board):
 #end def
 ''' Verificar si cada valor inicial (extremo) de un color tiene una casilla adyacente perteneciente al pathX.
 @Entradas -> initial(list): lista de strings correspondientes a los extremos de un color. 
-             path(list): lista de strings correspondientes al camino d eun color.
-             dim: 
-@Salida ->
+             path(list): lista de strings correspondientes al camino de un color.
+             dim: dimensiones del tablero de juego
+@Salida -> retorna 'bool' cuando el camino está completo
 '''
 def checkPath(initial, path, dim):
     win1 = False
