@@ -237,9 +237,7 @@ def cost(board, color, row, col, startCoord):
         else:
             h = abs(row - rInitialInt[0][0]) + abs(col - rInitialInt[0][1])
     elif color == 'B':
-        print('PATH EN COST ', pathB)
         if len(pathB) > 0:
-            print('Entra con ', row, ' ', col)
             if board[row][col] != '0':
                 g = len(pathB) + 10
             else:
@@ -248,10 +246,8 @@ def cost(board, color, row, col, startCoord):
         copyPath = pathB.copy()
         copyPath.append(str(row) + str(col))
         inRecord = False
-        #print('\t\t\t\t\t\t\t\t\tRecord cost ', bRecord)
         for record in bRecord:
             if (all(x in record for x in copyPath)):
-                #print ('NO ENTRA')
                 inRecord = True                    
             #end if
         #
@@ -324,7 +320,6 @@ def cost(board, color, row, col, startCoord):
             h = abs(row - wInitialInt[1][0]) + abs(col - wInitialInt[1][1])
         else:
             h = abs(row - wInitialInt[0][0]) + abs(col - wInitialInt[0][1])
-            print('H: ', h, ' con ', row, ' ', col)
     elif color == 'C':
         if len(pathC) > 0:
             if board[row][col] != '0':
@@ -408,10 +403,7 @@ def bestPath(board):
             countColor = 0
         #end if
         currentColor = colors[countColor][0]
-        #print('Color act: ', currentColor, ' con count ', countColor)
         if currentColor == 'R':
-            #print('Entra al color ', pathR)
-            #time.sleep(2)
             visited = []#'Nodos' visitados en el path
             startCoord = 'begin'
             completePath = checkPath(rInitial, pathR, dim)
@@ -419,7 +411,6 @@ def bestPath(board):
                 if len(pathR) == 0 and startCoord == 'begin':
                     beginRow, beginCol = rInitialInt[0][0], rInitialInt[0][1] #Coordenada del punto inicial
                     elementsAdd = availableAdj(board, currentColor, beginRow, beginCol)
-                    #print('Adyacentes: ', elementsAdd)
                 elif len(pathR) == 0 and startCoord == 'end':
                     endRow, endCol = rInitialInt[1][0], rInitialInt[1][1] #Coordenada del punto inicial
                     elementsAdd = availableAdjComplete(board, currentColor, endRow, endCol)
@@ -473,7 +464,6 @@ def bestPath(board):
                     for adj in elementsAdd:
                         if len(visited) == 0:
                             currentCost = cost(board, currentColor, adj[0], adj[1], startCoord)
-                            #print('Costo', currentCost, ' en ', adj)
                             priorityQueue.put((currentCost, adj))
                         elif adj not in visited:
                             currentCost = cost(board, currentColor, adj[0], adj[1], startCoord)
@@ -487,7 +477,6 @@ def bestPath(board):
                         board[element[1][0]][element[1][1]] = 'R'
                         pathR.append(coordenate)
                         showBoard(board)
-                        #time.sleep(1)
                         #Vacíar cola de prioridad
                         priorityQueue.queue.clear()
                 else:
@@ -524,7 +513,6 @@ def bestPath(board):
                         elementsAdd = availableAdj(board, currentColor, currentRow, currentCol)
                     else:
                         elementsAdd = availableAdjComplete(board, currentColor, currentRow, currentCol)
-                    #print('Adyacentes ', elementsAdd)
                     if len(elementsAdd) == 1 and (board[elementsAdd[0][0]][elementsAdd[0][1]] == currentColor or board[elementsAdd[0][0]][elementsAdd[0][1]] == currentColor+'!'):
                         if pathB not in bRecord:
                             copyPath = pathB.copy()
@@ -567,26 +555,20 @@ def bestPath(board):
                 if len(elementsAdd) > 0:
                     for adj in elementsAdd:
                         if len(visited) == 0:
-                            #print('ANTES DE COST El record es: ', bRecord)
                             currentCost = cost(board, currentColor, adj[0], adj[1], startCoord)
-                            #print('Costo actual ', currentCost, ' de ', adj)
                             priorityQueue.put((currentCost, adj))
                         elif adj not in visited:
-                            #print('ANTES DE COST El record es: ', bRecord)
                             currentCost = cost(board, currentColor, adj[0], adj[1], startCoord)
-                            #print('Costo actual ', currentCost, ' de ', adj)
                             priorityQueue.put((currentCost, adj))
                     #end for
                     if not priorityQueue.empty():
                         element = priorityQueue.get()
-                        #print('Elemento ', element)
                         visited.append(element[1])
                         coordenate = str(element[1][0])+str(element[1][1])
                         checkE(coordenate, board)
                         board[element[1][0]][element[1][1]] = 'B'
                         pathB.append(coordenate)
                         showBoard(board)
-                        #time.sleep(1)
                         #Vacíar cola de prioridad
                         priorityQueue.queue.clear()
                 else:
@@ -596,11 +578,9 @@ def bestPath(board):
                     #end if
                     visited.clear()
                 if checkPath(bInitial, pathB, dim):
-                    #print('Entra al if ini')
                     if pathB not in bRecord:
                         copyPath = pathB.copy()
                         bRecord.append(copyPath)
-                        #print('El record es: ', bRecord)
                     completePath = True
                 #end if
             #end while 
@@ -611,7 +591,6 @@ def bestPath(board):
             visited = []#'Nodos' visitados en el path
             startCoord = 'begin'
             completePath = checkPath(yInitial, pathY, dim)
-            #print('Path: ', pathY, ' and ', completePath)
             while not completePath:
                 if len(pathY) == 0 and startCoord == 'begin':
                     beginRow, beginCol = yInitialInt[0][0], yInitialInt[0][1] #Coordenada del punto inicial
@@ -681,8 +660,7 @@ def bestPath(board):
                         checkE(coordenate, board)
                         board[element[1][0]][element[1][1]] = 'Y'
                         pathY.append(coordenate)
-                        showBoard(board)
-                        #time.sleep(1)
+                        showBoard(board)                        
                         #Vacíar cola de prioridad
                         priorityQueue.queue.clear()
                 else:
@@ -702,7 +680,6 @@ def bestPath(board):
                 countColor += 1
         #end if
         if currentColor == 'G':
-            #print('Entra al color ', pathR)
             visited = []#'Nodos' visitados en el path
             startCoord = 'begin'
             completePath = checkPath(gInitial, pathG, dim)
@@ -710,7 +687,6 @@ def bestPath(board):
                 if len(pathG) == 0 and startCoord == 'begin':
                     beginRow, beginCol = gInitialInt[0][0], gInitialInt[0][1] #Coordenada del punto inicial
                     elementsAdd = availableAdj(board, currentColor, beginRow, beginCol)
-                    #print('Adyacentes: ', elementsAdd)
                 elif len(pathG) == 0 and startCoord == 'end':
                     endRow, endCol = gInitialInt[1][0], gInitialInt[1][1] #Coordenada del punto inicial
                     elementsAdd = availableAdjComplete(board, currentColor, endRow, endCol)
@@ -763,12 +739,10 @@ def bestPath(board):
                 if len(elementsAdd) > 0:
                     for adj in elementsAdd:
                         if len(visited) == 0:
-                            currentCost = cost(board, currentColor, adj[0], adj[1], startCoord)
-                            #print('Costo ', currentCost, ' en ', adj)
+                            currentCost = cost(board, currentColor, adj[0], adj[1], startCoord)                            
                             priorityQueue.put((currentCost, adj))
                         elif adj not in visited:
                             currentCost = cost(board, currentColor, adj[0], adj[1], startCoord)
-                            #print('Costo ', currentCost, ' en ', adj)
                             priorityQueue.put((currentCost, adj))
                     #end for
                     if not priorityQueue.empty():
@@ -779,7 +753,6 @@ def bestPath(board):
                         board[element[1][0]][element[1][1]] = 'G'
                         pathG.append(coordenate)
                         showBoard(board)
-                        #time.sleep(1)
                         #Vacíar cola de prioridad
                         priorityQueue.queue.clear()
                 else:
@@ -855,28 +828,24 @@ def bestPath(board):
                                 if v in elementsAdd:
                                     elementsAdd.remove(v) 
                 #end if
-                #print('Adyacentes ', elementsAdd)
                 if len(elementsAdd) > 0:
                     for adj in elementsAdd:
                         if len(visited) == 0:
                             currentCost = cost(board, currentColor, adj[0], adj[1], startCoord)
-                            #print('Costo actual ', currentCost, ' de ', adj)
                             priorityQueue.put((currentCost, adj))
                         elif adj not in visited:
                             currentCost = cost(board, currentColor, adj[0], adj[1], startCoord)
-                            #print('Costo actual ', currentCost, ' de ', adj)
                             priorityQueue.put((currentCost, adj))
                     #end for
                     if not priorityQueue.empty():
                         element = priorityQueue.get()
-                        #print('Elemento ', element)
                         visited.append(element[1])
                         coordenate = str(element[1][0])+str(element[1][1])
                         checkE(coordenate, board)
                         board[element[1][0]][element[1][1]] = 'W'
                         pathW.append(coordenate)
                         showBoard(board)
-                        #time.sleep(1)
+                        
                         #Vacíar cola de prioridad
                         priorityQueue.queue.clear()
                 else:
@@ -913,24 +882,18 @@ def bestPath(board):
                         elementsAdd = availableAdj(board, currentColor, currentRow, currentCol)
                     else:
                         elementsAdd = availableAdjComplete(board, currentColor, currentRow, currentCol)
-                    #print('Ady ', elementsAdd)
                     if len(elementsAdd) == 1 and (board[elementsAdd[0][0]][elementsAdd[0][1]] == currentColor or board[elementsAdd[0][0]][elementsAdd[0][1]] == currentColor+'!'):
                         if pathC not in cRecord:
                             copyPath = pathC.copy()
                             cRecord.append(copyPath)
-                        #print('PATH C ', pathC)
                         ind = -1
                         for i in range(len(pathC)-1, -1, -1):
-                            #print('PATH C, última pos ', pathC[i])
-                            #print('PATH C ', pathC[i][0])
                             if len(availableAdj(board, currentColor, int(pathC[i][0]), int(pathC[i][1]))) != 0:
-                                #print('Entra con ', pathC[i])
                                 ind = i 
                                 i = -1
                         if ind != -1:
                             visited.append([int(pathC[ind+1][0]), int(pathC[ind+1][1])])
                             removeNext(currentColor, pathC[ind], board)
-                        #print('PATH SALIR ', pathC)
                         if len(pathC) == 0:
                             currentCoor = cInitial[0]
                         else:
@@ -976,7 +939,7 @@ def bestPath(board):
                         board[element[1][0]][element[1][1]] = 'C'
                         pathC.append(coordenate)
                         showBoard(board)
-                        #time.sleep(1)
+                        
                         #Vacíar cola de prioridad
                         priorityQueue.queue.clear()
                 else:
@@ -1068,8 +1031,7 @@ def bestPath(board):
                         checkE(coordenate, board)
                         board[element[1][0]][element[1][1]] = 'P'
                         pathP.append(coordenate)
-                        showBoard(board)
-                        #time.sleep(1)
+                        showBoard(board)                        
                         #Vacíar cola de prioridad
                         priorityQueue.queue.clear()
                 else:

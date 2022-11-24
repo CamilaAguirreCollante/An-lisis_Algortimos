@@ -75,7 +75,6 @@ def createBoard(dim):
     path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(numBoard) + ".txt"
     #path = "Niveles6X6/5.txt"
     #path = "Niveles8X8/1.txt"
-    #path = "Niveles9X9/5.txt"
     board = []
     with open(path, "r") as file:
         for lines in file:
