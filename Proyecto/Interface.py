@@ -67,13 +67,14 @@ def defInitials(board):
 @Salida -> board(list): creación del tablero de juego.
 '''
 def createBoard(dim):
-    if dim == 9:
-        numBoard = random.randint(1, 7)
+    if dim < 7:
+        numBoard =  random.randint(1, 5)        
     else:
-        numBoard =  random.randint(1, 10)
+        numBoard =  random.randint(1, 4)
     #end if
-    #path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(numBoard) + ".txt"
-    path = "Niveles8X8/2.txt"
+    path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(numBoard) + ".txt"
+    #path = "Niveles8X8/1.txt"
+    #path = "Niveles9X9/5.txt"
     board = []
     with open(path, "r") as file:
         for lines in file:
@@ -192,7 +193,7 @@ def checkE(element, board):
     if len(pathP) > 0:
         if element in pathP:
             for p in range (len(pathP)):
-                board[int(pathP[p][0])][int(pathR[p][1])] = '0'
+                board[int(pathP[p][0])][int(pathP[p][1])] = '0'
             #end for
             pathP.clear()
             return True
