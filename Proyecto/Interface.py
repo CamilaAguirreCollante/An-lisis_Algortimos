@@ -73,6 +73,7 @@ def createBoard(dim):
         numBoard =  random.randint(1, 4)
     #end if
     path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(numBoard) + ".txt"
+    #path = "Niveles6X6/5.txt"
     #path = "Niveles8X8/1.txt"
     #path = "Niveles9X9/5.txt"
     board = []

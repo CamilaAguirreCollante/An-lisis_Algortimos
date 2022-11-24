@@ -403,7 +403,7 @@ def bestPath(board):
     countColor = 0
     dim = len(board)
     priorityQueue = queue.PriorityQueue(4) #cola de prioridad
-    while not checkWinner(board) or not checkFinished(board): #Mientras no se haya solucionado el tablero
+    while not checkWinner(board):# or not checkFinished(board): #Mientras no se haya solucionado el tablero
         if countColor == len(colors): #está "fuera de rango"
             countColor = 0
         #end if
@@ -434,12 +434,14 @@ def bestPath(board):
                         if pathR not in rRecord:
                             copyPath = pathR.copy()
                             rRecord.append(copyPath)
+                        ind = -1
                         for i in range(len(pathR)-1, -1, -1):
                             if len(availableAdj(board, currentColor, int(pathR[i][0]), int(pathR[i][1]))) != 0:
                                 ind = i 
                                 i = -1
-                        visited.append([int(pathR[ind+1][0]), int(pathR[ind+1][1])])
-                        removeNext(currentColor, pathR[ind], board)
+                        if ind != -1:
+                            visited.append([int(pathR[ind+1][0]), int(pathR[ind+1][1])])
+                            removeNext(currentColor, pathR[ind], board)
                         if len(pathR) == 0:
                             currentCoor = rInitial[0]
                         else:
@@ -527,12 +529,14 @@ def bestPath(board):
                         if pathB not in bRecord:
                             copyPath = pathB.copy()
                             bRecord.append(copyPath)
+                        ind = -1
                         for i in range(len(pathB)-1, -1, -1):
                             if len(availableAdj(board, currentColor, int(pathB[i][0]), int(pathB[i][1]))) != 0:
                                 ind = i 
                                 i = -1
-                        visited.append([int(pathB[ind+1][0]), int(pathB[ind+1][1])])
-                        removeNext(currentColor, pathB[ind], board)
+                        if ind != -1:
+                            visited.append([int(pathB[ind+1][0]), int(pathB[ind+1][1])])
+                            removeNext(currentColor, pathB[ind], board)
                         if len(pathB) == 0:
                             currentCoor = bInitial[0]
                         else:
@@ -626,12 +630,14 @@ def bestPath(board):
                         if pathY not in yRecord:
                             copyPath = pathY.copy()
                             yRecord.append(copyPath)
+                        ind = -1
                         for i in range(len(pathY)-1, -1, -1):
                             if len(availableAdj(board, currentColor, int(pathY[i][0]), int(pathY[i][1]))) != 0:
                                 ind = i 
                                 i = -1
-                        visited.append([int(pathY[ind+1][0]), int(pathY[ind+1][1])])
-                        removeNext(currentColor, pathY[ind], board)
+                        if ind != -1:
+                            visited.append([int(pathY[ind+1][0]), int(pathY[ind+1][1])])
+                            removeNext(currentColor, pathY[ind], board)
                         if len(pathY) == 0:
                             currentCoor = yInitial[0]
                         else:
@@ -719,12 +725,14 @@ def bestPath(board):
                         if pathG not in gRecord:
                             copyPath = pathG.copy()
                             gRecord.append(copyPath)
+                        ind = -1
                         for i in range(len(pathG)-1, -1, -1):
                             if len(availableAdj(board, currentColor, int(pathG[i][0]), int(pathG[i][1]))) != 0:
                                 ind = i 
                                 i = -1
-                        visited.append([int(pathG[ind+1][0]), int(pathG[ind+1][1])])
-                        removeNext(currentColor, pathG[ind], board)
+                        if ind != -1:
+                            visited.append([int(pathG[ind+1][0]), int(pathG[ind+1][1])])
+                            removeNext(currentColor, pathG[ind], board)
                         if len(pathG) == 0:
                             currentCoor = gInitial[0]
                         else:
@@ -812,12 +820,14 @@ def bestPath(board):
                         if pathW not in wRecord:
                             copyPath = pathW.copy()
                             wRecord.append(copyPath)
+                        ind = -1
                         for i in range(len(pathW)-1, -1, -1):
                             if len(availableAdj(board, currentColor, int(pathW[i][0]), int(pathW[i][1]))) != 0:
                                 ind = i 
                                 i = -1
-                        visited.append([int(pathW[ind+1][0]), int(pathW[ind+1][1])])
-                        removeNext(currentColor, pathW[ind], board)
+                        if ind != -1:
+                            visited.append([int(pathW[ind+1][0]), int(pathW[ind+1][1])])
+                            removeNext(currentColor, pathW[ind], board)
                         if len(pathW) == 0:
                             currentCoor = wInitial[0]
                         else:
@@ -909,6 +919,7 @@ def bestPath(board):
                             copyPath = pathC.copy()
                             cRecord.append(copyPath)
                         #print('PATH C ', pathC)
+                        ind = -1
                         for i in range(len(pathC)-1, -1, -1):
                             #print('PATH C, última pos ', pathC[i])
                             #print('PATH C ', pathC[i][0])
@@ -916,8 +927,9 @@ def bestPath(board):
                                 #print('Entra con ', pathC[i])
                                 ind = i 
                                 i = -1
-                        visited.append([int(pathC[ind+1][0]), int(pathC[ind+1][1])])
-                        removeNext(currentColor, pathC[ind], board)
+                        if ind != -1:
+                            visited.append([int(pathC[ind+1][0]), int(pathC[ind+1][1])])
+                            removeNext(currentColor, pathC[ind], board)
                         #print('PATH SALIR ', pathC)
                         if len(pathC) == 0:
                             currentCoor = cInitial[0]
@@ -1005,12 +1017,14 @@ def bestPath(board):
                         if pathP not in pRecord:
                             copyPath = pathP.copy()
                             pRecord.append(copyPath)
+                        ind = -1
                         for i in range(len(pathP)-1, -1, -1):
                             if len(availableAdj(board, currentColor, int(pathP[i][0]), int(pathP[i][1]))) != 0:
                                 ind = i 
                                 i = -1
-                        visited.append([int(pathP[ind+1][0]), int(pathP[ind+1][1])])
-                        removeNext(currentColor, pathP[ind], board)
+                        if ind != -1:
+                            visited.append([int(pathP[ind+1][0]), int(pathP[ind+1][1])])
+                            removeNext(currentColor, pathP[ind], board)
                         if len(pathP) == 0:
                             currentCoor = pInitial[0]
                         else:
