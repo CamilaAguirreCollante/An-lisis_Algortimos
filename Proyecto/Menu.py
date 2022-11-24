@@ -3,7 +3,8 @@
         María Camila Aguirre Collante
         Jessica Tatiana Naizaque Guevara
 """
-from InterfazPrueba import *
+from Interface import *
+from Solver import *
 '''
 Menú de juego -> muestra las intrucciones al jugador
 '''
@@ -20,32 +21,67 @@ def gameMenu():
         print("\t\t6. Salir")
         option = int(input("\tPor favor elija el tamaño del tablero: "))
         if option == 1:
-            board = createBoard(5)
-            showBoard(board)
-            selectMove(board)
+            play = str(input("\n\t\tDesea jugar? (S/N) "))
+            if play.upper() == 'S':
+                board = createBoard(5)
+                showBoard(board)
+                selectMove(board)
+            else:
+                print("\t\t\t Solucionador por A* modificado \n\n")
+                board = createBoard(5)
+                showBoard(board)
+                bestPath(board)
         elif option == 2:
-            board = createBoard(6)
-            showBoard(board)
-            selectMove(board)
+            play = str(input("\n\t\tDesea jugar? (S/N) "))
+            if play.upper() == 'S':
+                board = createBoard(6)
+                showBoard(board)
+                selectMove(board)
+            else:
+                print("\t\t\t Solucionador por A* modificado \n\n")
+                board = createBoard(6)
+                showBoard(board)
+                bestPath(board)
         elif option == 3:
-            board = createBoard(7)
-            showBoard(board)
-            selectMove(board)
+            play = str(input("\n\t\tDesea jugar? (S/N) "))
+            if play.upper() == 'S':
+                board = createBoard(7)
+                showBoard(board)
+                selectMove(board)
+            else:
+                print("\t\t\t Solucionador por A* modificado \n\n")
+                board = createBoard(7)
+                showBoard(board)
+                bestPath(board)
         elif option == 4:
-            board = createBoard(8)
-            showBoard(board)
-            selectMove(board)
+            play = str(input("\n\t\tDesea jugar? (S/N) "))
+            if play.upper() == 'S':
+                board = createBoard(8)
+                showBoard(board)
+                selectMove(board)
+            else:
+                print("\t\t\t Solucionador por A* modificado \n\n")
+                board = createBoard(8)
+                showBoard(board)
+                bestPath(board)
         elif option == 5:
-            board = createBoard(9)
-            showBoard(board)
-            selectMove(board)
+            play = str(input("\n\t\tDesea jugar? (S/N) "))
+            if play.upper() == 'S':
+                board = createBoard(9)
+                showBoard(board)
+                selectMove(board)
+            else:
+                print("\t\t\t Solucionador por A* modificado \n\n")
+                board = createBoard(9)
+                showBoard(board)
+                bestPath(board)
         elif option == 6:
             print("\n\t\tAdiósss:(\n")
             salir = True
         else: 
             print("\n\t\tOpción inválida!\n")
-            print("\tRecuerde los tamaños disponibles: 5x5(1), 6x6(2), 7x7(3), 8x8(4) y 9x9(5) ")
-            option = int(input("\tIngrese de nuevo una opción: "))
+            #print("\tRecuerde los tamaños disponibles: 5x5(1), 6x6(2), 7x7(3), 8x8(4) y 9x9(5) ")
+            #option = int(input("\tIngrese de nuevo una opción: "))
         print("\n\n")
     #end-while
 #end-def

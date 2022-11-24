@@ -72,8 +72,8 @@ def createBoard(dim):
     else:
         numBoard =  random.randint(1, 10)
     #end if
-    path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(numBoard) + ".txt"
-    #path = "Niveles5X5/1.txt"
+    #path = "Niveles" + str(dim) + "X" + str(dim) + "/" + str(numBoard) + ".txt"
+    path = "Niveles8X8/2.txt"
     board = []
     with open(path, "r") as file:
         for lines in file:
@@ -732,7 +732,7 @@ def getIndex(color, i, j):
 @Entradas -> color(string): letra del color correspondiente al path en el que se desea buscar.
              pos(int): posición (ínidice) de la cual 
                        se quiere obtener la coordenada.
-@Salidas -> retorna un string con la coordenada encontrda.
+@Salidas -> retorna un string con la coordenada encontrada.
 '''
 def getPosPath(color, pos):
     if color == 'R':
